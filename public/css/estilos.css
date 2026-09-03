@@ -1,0 +1,162 @@
+:root {
+    --cor-primaria: #245c4f;
+    --cor-primaria-escura: #173f36;
+    --cor-destaque: #d18b47;
+    --cor-fundo: #f4f8f6;
+    --cor-texto: #24312d;
+    --cor-branca: #ffffff;
+    --cor-borda: #cbd8d3;
+    --cor-erro: #a61b1b;
+    --sombra: 0 12px 30px rgba(23, 63, 54, 0.16);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.pagina-login {
+    background: linear-gradient(135deg, #e7f1ec, #f8eee4);
+}
+
+.login-container {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background-color: var(--cor-branca);
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--sombra);
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.marca-simbolo {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--cor-destaque);
+    font-size: 30px;
+}
+
+.marca h1 {
+    color: var(--cor-primaria-escura);
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+.marca p {
+    color: #52635d;
+    margin-top: 4px;
+}
+
+.orientacao {
+    margin-bottom: 24px;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: var(--cor-primaria-escura);
+}
+
+.campo input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: var(--cor-branca);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(36, 92, 79, 0.18);
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 18px;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branca);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--cor-primaria-escura);
+    transform: translateY(-1px);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 3px;
+}
+
+.mensagem {
+    min-height: 24px;
+    margin-top: 16px;
+    color: var(--cor-erro);
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 16px;
+    }
+
+    .login-card {
+        padding: 24px;
+        border-radius: 12px;
+    }
+
+    .marca {
+        align-items: flex-start;
+    }
+
+    .marca h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.mensagem.sucesso {
+    color: var(--cor-primaria);
+}
