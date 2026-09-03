@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saldo do estudante | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="pagina-formulario">
+    <header class="topo-painel">
+        <div class="marca-painel">
+            <span class="icone-formiga">🐜</span>
+            <div>
+                <h1>Banco Formigueiro</h1>
+                <p>Projeto Formiguinha Decola</p>
+            </div>
+        </div>
+        <a class="botao-sair" href="/painel">Voltar</a>
+    </header>
+
+    <main class="conteudo-formulario">
+        <section class="cabecalho-formulario">
+            <h2>Saldo do estudante</h2>
+            <p>Selecione um estudante para consultar o saldo atual.</p>
+        </section>
+
+        <form id="form-saldo" class="formulario-estudante" method="GET" action="/saldo" novalidate>
+            <div class="campo-formulario">
+                <label for="estudante">Estudante</label>
+                <select id="estudante" name="estudanteId" required>
+                    <option value="">Selecione um estudante</option>
+                    <% if (estudantes && estudantes.length > 0) { %>
+                        <% estudantes.forEach((estudante) => { %>
+                            <option value="<%= estudante.id %>"><%= estudante.nome %> — <%= estudante.turma %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+                <small class="mensagem-campo" id="erro-estudante"></small>
+            </div>
+
+            <div class="acoes-formulario">
+                <button class="botao-salvar" type="submit">Consultar saldo</button>
+            </div>
+
+            <p id="mensagem-saldo" class="mensagem-cadastro" aria-live="polite"></p>
+        </form>
+
+        <% if (estudanteSelecionado && saldo !== null) { %>
+            <section class="resultado-saldo">
+                <p>Saldo disponível</p>
+                <h3><%= estudanteSelecionado.nome %></h3>
+                <p class="identificacao-turma">Turma: <%= estudanteSelecionado.turma %></p>
+                <strong><%= Number(saldo).toFixed(2).replace(".", ",") %> LRCash</strong>
+            </section>
+        <% } %>
+    </main>
+
+    <script src="/js/saldo-estudante.js"></script>
+</body>
+</html>

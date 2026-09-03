@@ -606,3 +606,34 @@ button:focus-visible {
     border-color: #276554;
     box-shadow: 0 0 0 3px rgba(39, 101, 84, 0.15);
 }
+
+.resultado-saldo {
+    margin-top: 24px;
+    padding: 28px;
+    border-radius: 14px;
+    background: #276554;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(23, 63, 53, 0.18);
+}
+
+.resultado-saldo p {
+    margin: 0;
+    color: #dcebe6;
+}
+
+.resultado-saldo h3 {
+    margin: 10px 0 0;
+    font-size: 24px;
+}
+
+.resultado-saldo .identificacao-turma {
+    margin-top: 6px;
+}
+
+.resultado-saldo strong {
+    display: block;
+    margin-top: 20px;
+    font-size: 34px;
+    color: #ffffff;
+}

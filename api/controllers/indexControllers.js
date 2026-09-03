@@ -18,10 +18,19 @@ function exibirLancamentoLRCash(req, res) {
     res.render("lancamento-lrcash", { estudantes: [] });
 }
 
+function exibirSaldo(req, res) {
+    res.render("saldo-estudante", {
+        estudantes: [],
+        estudanteSelecionado: null,
+        saldo: null
+    });
+}
+
 module.exports = {
     exibirLogin,
     exibirPainel,
     exibirCadastroEstudante,
     exibirListaEstudantes,
-    exibirLancamentoLRCash
+    exibirLancamentoLRCash,
+    exibirSaldo
 };
