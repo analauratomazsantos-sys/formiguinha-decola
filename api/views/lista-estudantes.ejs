@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de estudantes | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="pagina-lista">
+    <header class="topo-painel">
+        <div class="marca-painel">
+            <span class="icone-formiga">🐜</span>
+            <div>
+                <h1>Banco Formigueiro</h1>
+                <p>Projeto Formiguinha Decola</p>
+            </div>
+        </div>
+        <a class="botao-sair" href="/painel">Voltar</a>
+    </header>
+
+    <main class="conteudo-lista">
+        <section class="cabecalho-lista">
+            <div>
+                <h2>Lista de estudantes</h2>
+                <p>Consulte os estudantes cadastrados e suas turmas.</p>
+            </div>
+            <a class="botao-novo" href="/estudantes/novo">Cadastrar estudante</a>
+        </section>
+
+        <section class="tabela-container">
+            <table class="tabela-estudantes">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">RA</th>
+                        <th scope="col">Turma</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (!estudantes || estudantes.length === 0) { %>
+                        <tr>
+                            <td colspan="4" class="estado-vazio">Nenhum estudante cadastrado.</td>
+                        </tr>
+                    <% } else { %>
+                        <% estudantes.forEach((estudante) => { %>
+                            <tr>
+                                <td><%= estudante.nome %></td>
+                                <td><%= estudante.ra %></td>
+                                <td><%= estudante.turma %></td>
+                                <td>
+                                    <a class="botao-tabela" href="/estudantes/<%= estudante.id %>">Consultar</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
