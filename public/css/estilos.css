@@ -577,3 +577,32 @@ button:focus-visible {
         padding: 13px;
     }
 }
+
+.informacao-operacao {
+    margin: 0 0 22px;
+    padding: 12px 14px;
+    border-left: 4px solid #276554;
+    border-radius: 6px;
+    background: #eef6f1;
+    color: #173f35;
+}
+
+.campo-formulario textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #b9cbc4;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #263b35;
+    font-family: inherit;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    resize: vertical;
+    transition: 0.2s;
+}
+
+.campo-formulario textarea:focus {
+    border-color: #276554;
+    box-shadow: 0 0 0 3px rgba(39, 101, 84, 0.15);
+}

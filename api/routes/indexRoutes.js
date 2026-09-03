@@ -7,5 +7,6 @@ router.get("/login", indexControllers.exibirLogin);
 router.get("/painel", indexControllers.exibirPainel);
 router.get("/estudantes/novo", indexControllers.exibirCadastroEstudante);
 router.get("/estudantes", indexControllers.exibirListaEstudantes);
+router.get("/lrcash", indexControllers.exibirLancamentoLRCash);
 
 module.exports = router;

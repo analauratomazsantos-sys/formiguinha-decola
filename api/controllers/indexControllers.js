@@ -14,9 +14,14 @@ function exibirListaEstudantes(req, res) {
     res.render("lista-estudantes", { estudantes: [] });
 }
 
+function exibirLancamentoLRCash(req, res) {
+    res.render("lancamento-lrcash", { estudantes: [] });
+}
+
 module.exports = {
     exibirLogin,
     exibirPainel,
     exibirCadastroEstudante,
-    exibirListaEstudantes
+    exibirListaEstudantes,
+    exibirLancamentoLRCash
 };

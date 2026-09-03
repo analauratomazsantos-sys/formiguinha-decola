@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançar LRCash | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="pagina-formulario">
+    <header class="topo-painel">
+        <div class="marca-painel">
+            <span class="icone-formiga">🐜</span>
+            <div>
+                <h1>Banco Formigueiro</h1>
+                <p>Projeto Formiguinha Decola</p>
+            </div>
+        </div>
+        <a class="botao-sair" href="/painel">Voltar</a>
+    </header>
+
+    <main class="conteudo-formulario">
+        <section class="cabecalho-formulario">
+            <h2>Lançar LRCash</h2>
+            <p>Registre um crédito e identifique o critério da movimentação.</p>
+        </section>
+
+        <form id="form-lrcash" class="formulario-estudante" novalidate>
+            <input type="hidden" id="tipo" name="tipo" value="CREDITO">
+
+            <p class="informacao-operacao">Tipo de movimentação: <strong>Crédito</strong></p>
+
+            <div class="campo-formulario">
+                <label for="estudante">Estudante</label>
+                <select id="estudante" name="estudanteId" required>
+                    <option value="">Selecione um estudante</option>
+                    <% if (estudantes && estudantes.length > 0) { %>
+                        <% estudantes.forEach((estudante) => { %>
+                            <option value="<%= estudante.id %>"><%= estudante.nome %> — <%= estudante.turma %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+                <small class="mensagem-campo" id="erro-estudante"></small>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="criterio">Critério</label>
+                <select id="criterio" name="criterio" required>
+                    <option value="">Selecione um critério</option>
+                    <option value="FREQUENCIA">Frequência escolar</option>
+                    <option value="SALA_DO_FUTURO">Tarefa da Sala do Futuro</option>
+                </select>
+                <small class="mensagem-campo" id="erro-criterio"></small>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="valor">Valor em LRCash</label>
+                <input type="number" id="valor" name="valor" min="0.01" step="0.01" required>
+                <small class="mensagem-campo" id="erro-valor"></small>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="observacao">Observação — opcional</label>
+                <textarea id="observacao" name="observacao" rows="3" maxlength="200" placeholder="Digite uma observação, se necessário."></textarea>
+            </div>
+
+            <div class="acoes-formulario">
+                <a class="botao-cancelar" href="/painel">Cancelar</a>
+                <button class="botao-salvar" type="submit">Registrar crédito</button>
+            </div>
+
+            <p id="mensagem-lrcash" class="mensagem-cadastro" aria-live="polite"></p>
+        </form>
+    </main>
+
+    <script src="/js/lancamento-lrcash.js"></script>
+</body>
+</html>
