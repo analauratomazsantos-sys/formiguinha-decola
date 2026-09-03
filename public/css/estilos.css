@@ -637,3 +637,33 @@ button:focus-visible {
     font-size: 34px;
     color: #ffffff;
 }
+
+.resumo-extrato {
+    margin: 24px 0;
+    padding: 20px 24px;
+    border: 1px solid #d8e3de;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(23, 63, 53, 0.08);
+}
+
+.resumo-extrato p {
+    margin: 0;
+    color: #60736d;
+}
+
+.resumo-extrato h3 {
+    margin: 6px 0;
+    color: #173f35;
+    font-size: 22px;
+}
+
+.valor-positivo {
+    color: #1f7a4d;
+    font-weight: 700;
+}
+
+.valor-negativo {
+    color: #b42318;
+    font-weight: 700;
+}

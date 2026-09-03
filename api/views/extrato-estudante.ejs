@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrato do estudante | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="pagina-lista">
+    <header class="topo-painel">
+        <div class="marca-painel">
+            <span class="icone-formiga">🐜</span>
+            <div>
+                <h1>Banco Formigueiro</h1>
+                <p>Projeto Formiguinha Decola</p>
+            </div>
+        </div>
+        <a class="botao-sair" href="/painel">Voltar</a>
+    </header>
+
+    <main class="conteudo-lista">
+        <section class="cabecalho-formulario">
+            <h2>Extrato do estudante</h2>
+            <p>Selecione um estudante para consultar suas movimentações.</p>
+        </section>
+
+        <form id="form-extrato" class="formulario-estudante" method="GET" action="/extrato" novalidate>
+            <div class="campo-formulario">
+                <label for="estudante">Estudante</label>
+                <select id="estudante" name="estudanteId" required>
+                    <option value="">Selecione um estudante</option>
+                    <% if (estudantes && estudantes.length > 0) { %>
+                        <% estudantes.forEach((estudante) => { %>
+                            <option value="<%= estudante.id %>"><%= estudante.nome %> — <%= estudante.turma %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+                <small class="mensagem-campo" id="erro-estudante"></small>
+            </div>
+
+            <div class="acoes-formulario">
+                <button class="botao-salvar" type="submit">Consultar extrato</button>
+            </div>
+
+            <p id="mensagem-extrato" class="mensagem-cadastro" aria-live="polite"></p>
+        </form>
+
+        <% if (estudanteSelecionado) { %>
+            <section class="resumo-extrato">
+                <p>Movimentações de</p>
+                <h3><%= estudanteSelecionado.nome %></h3>
+                <p>Turma: <%= estudanteSelecionado.turma %></p>
+            </section>
+
+            <section class="tabela-container">
+                <table class="tabela-estudantes">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Critério</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (!movimentacoes || movimentacoes.length === 0) { %>
+                            <tr>
+                                <td colspan="5" class="estado-vazio">Nenhuma movimentação encontrada.</td>
+                            </tr>
+                        <% } else { %>
+                            <% movimentacoes.forEach((movimentacao) => { %>
+                                <tr>
+                                    <td><%= movimentacao.data %></td>
+                                    <td><%= movimentacao.tipo %></td>
+                                    <td><%= movimentacao.criterio %></td>
+                                    <td class="<%= movimentacao.tipo === 'DEBITO' ? 'valor-negativo' : 'valor-positivo' %>">
+                                        <%= movimentacao.tipo === "DEBITO" ? "-" : "+" %><%= Number(movimentacao.valor).toFixed(2).replace(".", ",") %> LRCash
+                                    </td>
+                                    <td><%= movimentacao.responsavel || "—" %></td>
+                                </tr>
+                            <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </section>
+        <% } %>
+    </main>
+
+    <script src="/js/extrato-estudante.js"></script>
+</body>
+</html>

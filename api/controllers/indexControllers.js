@@ -26,11 +26,20 @@ function exibirSaldo(req, res) {
     });
 }
 
+function exibirExtrato(req, res) {
+    res.render("extrato-estudante", {
+        estudantes: [],
+        estudanteSelecionado: null,
+        movimentacoes: []
+    });
+}
+
 module.exports = {
     exibirLogin,
     exibirPainel,
     exibirCadastroEstudante,
     exibirListaEstudantes,
     exibirLancamentoLRCash,
-    exibirSaldo
+    exibirSaldo,
+    exibirExtrato
 };

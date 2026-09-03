@@ -9,5 +9,6 @@ router.get("/estudantes/novo", indexControllers.exibirCadastroEstudante);
 router.get("/estudantes", indexControllers.exibirListaEstudantes);
 router.get("/lrcash", indexControllers.exibirLancamentoLRCash);
 router.get("/saldo", indexControllers.exibirSaldo);
+router.get("/extrato", indexControllers.exibirExtrato);
 
 module.exports = router;
