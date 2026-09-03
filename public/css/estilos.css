@@ -160,3 +160,139 @@ button:focus-visible {
 .mensagem.sucesso {
     color: var(--cor-primaria);
 }
+
+.pagina-painel {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef6f1, #fff7ed);
+    color: #173f35;
+}
+
+.topo-painel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 6%;
+    background: #ffffff;
+    border-bottom: 1px solid #d8e3de;
+}
+
+.marca-painel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.icone-formiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #dc8d3f;
+    font-size: 26px;
+}
+
+.marca-painel h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.marca-painel p {
+    margin: 3px 0 0;
+    color: #60736d;
+}
+
+.botao-sair {
+    padding: 11px 22px;
+    border-radius: 8px;
+    background: #276554;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.botao-sair:hover {
+    background: #194b3f;
+    transform: translateY(-2px);
+}
+
+.conteudo-painel {
+    width: 88%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.boas-vindas {
+    margin-bottom: 30px;
+}
+
+.boas-vindas h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.boas-vindas p {
+    margin: 8px 0 0;
+    color: #60736d;
+}
+
+.grade-funcoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.cartao-funcao {
+    display: block;
+    min-height: 130px;
+    padding: 24px;
+    border: 1px solid #d8e3de;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #173f35;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(23, 63, 53, 0.08);
+    transition: 0.2s;
+}
+
+.cartao-funcao:hover {
+    border-color: #dc8d3f;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(23, 63, 53, 0.14);
+}
+
+.cartao-funcao h3 {
+    margin: 0 0 12px;
+    color: #276554;
+    font-size: 20px;
+}
+
+.cartao-funcao p {
+    margin: 0;
+    color: #60736d;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .topo-painel {
+        align-items: flex-start;
+        padding: 18px 5%;
+        gap: 15px;
+    }
+
+    .marca-painel h1 {
+        font-size: 20px;
+    }
+
+    .botao-sair {
+        padding: 9px 15px;
+    }
+
+    .conteudo-painel {
+        padding: 32px 0;
+    }
+}

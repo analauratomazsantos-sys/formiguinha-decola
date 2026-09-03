@@ -23,5 +23,9 @@ form.addEventListener("submit", (event) => {
     }
 
     mensagem.classList.add("sucesso");
-    mensagem.textContent = "Dados validados. Aguardando conexão com o servidor.";
+    mensagem.textContent = "Dados validados. Entrando...";
+
+    setTimeout(() => {
+        window.location.href = "/painel";
+    }, 1000);
 });
