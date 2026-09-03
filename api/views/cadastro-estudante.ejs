@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar estudante | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body class="pagina-formulario">
+    <header class="topo-painel">
+        <div class="marca-painel">
+            <span class="icone-formiga">🐜</span>
+            <div>
+                <h1>Banco Formigueiro</h1>
+                <p>Projeto Formiguinha Decola</p>
+            </div>
+        </div>
+        <a class="botao-sair" href="/painel">Voltar</a>
+    </header>
+
+    <main class="conteudo-formulario">
+        <section class="cabecalho-formulario">
+            <h2>Cadastrar estudante</h2>
+            <p>Preencha os dados solicitados e selecione a turma.</p>
+            <p class="aviso-dados">Durante o desenvolvimento, utilize somente dados fictícios.</p>
+        </section>
+
+        <form id="form-cadastro-estudante" class="formulario-estudante" novalidate>
+            <div class="campo-formulario">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" maxlength="120" required>
+                <small class="mensagem-campo" id="erro-nome"></small>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="ra">Registro do estudante (RA)</label>
+                <input type="text" id="ra" name="ra" maxlength="20" required>
+                <small class="mensagem-campo" id="erro-ra"></small>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="turma">Turma</label>
+                <select id="turma" name="turma" required>
+                    <option value="">Selecione uma turma</option>
+                    <option value="6A">6º ano A</option>
+                    <option value="6B">6º ano B</option>
+                    <option value="7A">7º ano A</option>
+                    <option value="7B">7º ano B</option>
+                    <option value="8A">8º ano A</option>
+                    <option value="9A">9º ano A</option>
+                    <option value="9B">9º ano B</option>
+                </select>
+                <small class="mensagem-campo" id="erro-turma"></small>
+            </div>
+
+            <div class="acoes-formulario">
+                <a class="botao-cancelar" href="/painel">Cancelar</a>
+                <button class="botao-salvar" type="submit">Salvar estudante</button>
+            </div>
+
+            <p id="mensagem-cadastro" class="mensagem-cadastro" aria-live="polite"></p>
+        </form>
+    </main>
+
+    <script src="/js/cadastro-estudante.js"></script>
+</body>
+</html>

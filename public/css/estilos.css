@@ -296,3 +296,161 @@ button:focus-visible {
         padding: 32px 0;
     }
 }
+
+.pagina-formulario {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef6f1, #fff7ed);
+    color: #173f35;
+}
+
+.conteudo-formulario {
+    width: 90%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 42px 0;
+}
+
+.cabecalho-formulario {
+    margin-bottom: 24px;
+}
+
+.cabecalho-formulario h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.cabecalho-formulario > p {
+    margin: 8px 0 0;
+    color: #60736d;
+}
+
+.cabecalho-formulario .aviso-dados {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-left: 4px solid #dc8d3f;
+    border-radius: 6px;
+    background: #fff4e7;
+    color: #70451d;
+    font-size: 14px;
+}
+
+.formulario-estudante {
+    padding: 30px;
+    border: 1px solid #d8e3de;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(23, 63, 53, 0.1);
+}
+
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.campo-formulario label {
+    color: #173f35;
+    font-weight: 600;
+}
+
+.campo-formulario input,
+.campo-formulario select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #b9cbc4;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #263b35;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.2s;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+    border-color: #276554;
+    box-shadow: 0 0 0 3px rgba(39, 101, 84, 0.15);
+}
+
+.mensagem-campo {
+    min-height: 17px;
+    color: #b42318;
+    font-size: 13px;
+}
+
+.acoes-formulario {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.botao-cancelar,
+.botao-salvar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.botao-cancelar {
+    border: 1px solid #b9cbc4;
+    color: #276554;
+    background: #ffffff;
+}
+
+.botao-salvar {
+    border: none;
+    background: #276554;
+    color: #ffffff;
+}
+
+.botao-cancelar:hover {
+    background: #eef6f1;
+}
+
+.botao-salvar:hover {
+    background: #194b3f;
+}
+
+.mensagem-cadastro {
+    min-height: 20px;
+    margin: 20px 0 0;
+    text-align: center;
+    color: #b42318;
+    font-weight: 600;
+}
+
+.mensagem-cadastro.sucesso {
+    color: #1f7a4d;
+}
+
+@media (max-width: 600px) {
+    .conteudo-formulario {
+        padding: 28px 0;
+    }
+
+    .formulario-estudante {
+        padding: 22px;
+    }
+
+    .acoes-formulario {
+        flex-direction: column-reverse;
+    }
+
+    .botao-cancelar,
+    .botao-salvar {
+        width: 100%;
+    }
+}
