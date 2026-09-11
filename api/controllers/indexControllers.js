@@ -34,6 +34,14 @@ function exibirExtrato(req, res) {
     });
 }
 
+function exibirFolhaPay(req, res) {
+    res.render("folhapay");
+}
+
+function exibirOcorrencias(req, res) {
+    res.render("ocorrencias");
+}
+
 module.exports = {
     exibirLogin,
     exibirPainel,
@@ -41,5 +49,7 @@ module.exports = {
     exibirListaEstudantes,
     exibirLancamentoLRCash,
     exibirSaldo,
-    exibirExtrato
+    exibirExtrato,
+    exibirFolhaPay,
+    exibirOcorrencias
 };

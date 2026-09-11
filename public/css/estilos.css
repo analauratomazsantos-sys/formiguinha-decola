@@ -28,6 +28,15 @@
     --erro: #b42318;
     --alerta: #b86a16;
 
+    --rosa-saldo: #c4515c;
+    --rosa-saldo-escuro: #a63e49;
+
+    --roxo-extrato: #7b61a8;
+    --roxo-extrato-escuro: #624d8c;
+
+    --turquesa-folhapay: #00a6a6;
+    --turquesa-folhapay-escuro: #008383;
+
     --raio-pequeno: 8px;
     --raio-medio: 14px;
     --raio-grande: 20px;
@@ -66,7 +75,7 @@ input {
 }
 
 .pagina-login {
-    background: linear-gradient(135deg, #e7f1ec, #f8eee4);
+    background: var(--amarelo-lrcash-claro);
 }
 
 .login-container {
@@ -85,7 +94,19 @@ input {
     padding: 32px;
     box-shadow: var(--sombra);
 }
-
+.mascote-login {
+    display: block;
+    width: 100px;
+    height: auto;
+    margin: -18px auto 20px;
+}
+.login-right h1,
+.login-right .subtitulo {
+    text-align: center;
+}
+.login-right .subtitulo {
+    margin-bottom: 5px;
+}
 .marca {
     display: flex;
     align-items: center;
@@ -181,7 +202,7 @@ button:focus-visible {
 
     .login-card {
         padding: 24px;
-        border-radius: 12px;
+        border-radius: 16px;
     }
 
     .marca {
@@ -208,9 +229,9 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 6%;
-    background: var(--azul-lr);
-    border-bottom: 4px solid var(--amarelo-lrcash);
+    padding: 16px 6%;
+    background: rgba(3, 49, 110, 0.85);
+    border-bottom: 5px solid var(--amarelo-lrcash);
     box-shadow: 0 4px 14px rgba(3, 49, 110, 0.16);
 }
 
@@ -221,15 +242,9 @@ button:focus-visible {
 }
 
 .icone-formiga {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: var(--amarelo-lrcash);
-    font-size: 27px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    height: auto;
+    object-fit: contain;
 }
 
 .marca-painel h1 {
@@ -264,7 +279,7 @@ button:focus-visible {
     width: 88%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 48px 0;
+   padding: 15px 0 10px;
 }
 
 .boas-vindas {
@@ -303,32 +318,30 @@ button:focus-visible {
     transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
+.cartao-funcao:nth-child(2) {
+    border-top-color: var(--verde-folha);
+}
+
 .cartao-funcao:nth-child(3) {
     border-top-color: var(--amarelo-lrcash);
 }
 
-.cartao-funcao:nth-child(4),
-.cartao-funcao:nth-child(5) {
-    border-top-color: var(--verde-folha);
-}
-
-.cartao-funcao:nth-child(6) {
-    border-top-color: var(--verde-folha);
-}
-
-.cartao-funcao:nth-child(7) {
-    border-top-color: var(--marrom-tamandua);
+.cartao-funcao:nth-child(4) {
+    border-top-color: var(--rosa-saldo);
 }
 
 .cartao-funcao:nth-child(5) {
+    border-top-color: var(--roxo-extrato);
     grid-column: 2 / span 2;
 }
 
 .cartao-funcao:nth-child(6) {
+    border-top-color: var(--turquesa-folhapay);
     grid-column: 4 / span 2;
 }
 
 .cartao-funcao:nth-child(7) {
+    border-top-color: var(--marrom-tamandua);
     grid-column: 6 / span 2;
 }
 
@@ -549,7 +562,7 @@ button:focus-visible {
 .pagina-lista {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #eef6f1, #fff7ed);
+    background: var(--amarelo-lrcash-claro);
     color: #173f35;
 }
 
@@ -757,4 +770,211 @@ button:focus-visible {
 .valor-negativo {
     color: #b42318;
     font-weight: 700;
+}
+
+.pagina-cadastro {
+    background: var(--verde-folha-claro);
+}
+
+.pagina-cadastro .topo-painel {
+    border-bottom-color: var(--verde-folha);
+}
+
+.pagina-estudantes {
+    background: var(--azul-lr-claro);
+}
+
+.pagina-estudantes .topo-painel {
+    border-bottom-color: var(--azul-lr);
+}
+
+.pagina-banco-formigueiro {
+    background: var(--amarelo-lrcash-claro);
+}
+
+.pagina-banco-formigueiro .topo-painel {
+    border-bottom-color: var(--amarelo-lrcash);
+}
+
+.pagina-saldo {
+    background: rgba(196, 81, 92, 0.08);
+}
+
+.pagina-saldo .topo-painel {
+    border-bottom-color: var(--rosa-saldo);
+}
+
+.pagina-extrato {
+    background: rgba(123, 97, 168, 0.08);
+}
+
+.pagina-extrato .topo-painel {
+    border-bottom-color: var(--roxo-extrato);
+}
+
+.pagina-folhapay {
+    background: rgba(0, 166, 166, 0.08);
+}
+
+.pagina-folhapay .topo-painel {
+    border-bottom-color: var(--turquesa-folhapay);
+}
+
+.pagina-ocorrencias {
+    background: rgba(146, 108, 81, 0.10);
+}
+
+.pagina-ocorrencias .topo-painel {
+    border-bottom-color: var(--marrom-tamandua);
+}
+
+/* ========================================
+   CORES DOS BOTÕES POR PÁGINA
+   ======================================== */
+
+/* ESTUDANTES - Azul */
+.pagina-estudantes .botao-novo,
+.pagina-estudantes .botao-tabela {
+    background: var(--azul-lr);
+    color: var(--branco);
+}
+
+.pagina-estudantes .botao-novo:hover,
+.pagina-estudantes .botao-tabela:hover {
+    background: var(--azul-lr-escuro);
+}
+
+
+/* CADASTRAR ESTUDANTE - Verde */
+.pagina-cadastro .botao-salvar {
+    background: var(--verde-folha);
+    color: var(--branco);
+}
+
+.pagina-cadastro .botao-salvar:hover {
+    background: var(--verde-folha-escuro);
+}
+
+
+/* BANCO FORMIGUEIRO - Amarelo */
+.pagina-banco-formigueiro .botao-salvar {
+    background: var(--amarelo-lrcash);
+    color: var(--azul-lr-escuro);
+}
+
+.pagina-banco-formigueiro .botao-salvar:hover {
+    background: #d9a600;
+}
+
+
+/* SALDO - Rosado/vermelho */
+.pagina-saldo .botao-salvar {
+    background: var(--rosa-saldo);
+    color: var(--branco);
+}
+
+.pagina-saldo .botao-salvar:hover {
+    background: var(--rosa-saldo-escuro);
+}
+
+
+/* EXTRATO - Roxo */
+.pagina-extrato .botao-salvar,
+.pagina-extrato .botao-tabela {
+    background: var(--roxo-extrato);
+    color: var(--branco);
+}
+
+.pagina-extrato .botao-salvar:hover,
+.pagina-extrato .botao-tabela:hover {
+    background: var(--roxo-extrato-escuro);
+}
+
+
+/* FOLHAPAY - Turquesa */
+.pagina-folhapay .botao-salvar {
+    background: var(--turquesa-folhapay);
+    color: var(--branco);
+}
+
+.pagina-folhapay .botao-salvar:hover {
+    background: var(--turquesa-folhapay-escuro);
+}
+
+
+/* OCORRÊNCIAS - Marrom/tamanduá */
+.pagina-ocorrencias .botao-salvar {
+    background: var(--marrom-tamandua);
+    color: var(--branco);
+}
+
+.pagina-ocorrencias .botao-salvar:hover {
+    background: var(--marrom-tamandua-escuro);
+}
+
+/* ========================================
+   CAMPOS DE FORMULÁRIO - IDENTIDADE VISUAL
+   ======================================== */
+
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    border-color: var(--borda);
+    color: var(--texto);
+    background: var(--branco);
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+    border-color: var(--azul-lr);
+    box-shadow: 0 0 0 3px rgba(3, 49, 110, 0.15);
+}
+
+.pagina-cadastro .campo-formulario input:focus,
+.pagina-cadastro .campo-formulario select:focus,
+.pagina-cadastro .campo-formulario textarea:focus {
+    border-color: var(--verde-folha);
+    box-shadow: 0 0 0 3px rgba(122, 201, 67, 0.18);
+}
+
+.pagina-banco-formigueiro .campo-formulario input:focus,
+.pagina-banco-formigueiro .campo-formulario select:focus,
+.pagina-banco-formigueiro .campo-formulario textarea:focus {
+    border-color: var(--amarelo-lrcash);
+    box-shadow: 0 0 0 3px rgba(253, 196, 10, 0.20);
+}
+
+.pagina-saldo .campo-formulario input:focus,
+.pagina-saldo .campo-formulario select:focus,
+.pagina-saldo .campo-formulario textarea:focus {
+    border-color: var(--rosa-saldo);
+    box-shadow: 0 0 0 3px rgba(196, 81, 92, 0.16);
+}
+
+.pagina-extrato .campo-formulario input:focus,
+.pagina-extrato .campo-formulario select:focus,
+.pagina-extrato .campo-formulario textarea:focus {
+    border-color: var(--roxo-extrato);
+    box-shadow: 0 0 0 3px rgba(123, 97, 168, 0.16);
+}
+
+.pagina-folhapay .campo-formulario input:focus,
+.pagina-folhapay .campo-formulario select:focus,
+.pagina-folhapay .campo-formulario textarea:focus {
+    border-color: var(--turquesa-folhapay);
+    box-shadow: 0 0 0 3px rgba(0, 166, 166, 0.16);
+}
+
+.pagina-ocorrencias .campo-formulario input:focus,
+.pagina-ocorrencias .campo-formulario select:focus,
+.pagina-ocorrencias .campo-formulario textarea:focus {
+    border-color: var(--marrom-tamandua);
+    box-shadow: 0 0 0 3px rgba(146, 108, 81, 0.18);
+}
+
+/* Resultado da tela Saldo seguindo a identidade do card */
+.pagina-saldo .resultado-saldo {
+    background: var(--rosa-saldo);
+    box-shadow: 0 10px 28px rgba(196, 81, 92, 0.18);
 }
