@@ -8,8 +8,6 @@ const erroTurma = document.getElementById("erro-turma");
 const mensagem = document.getElementById("mensagem-cadastro");
 
 form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
     const nome = nomeInput.value.trim();
     const ra = raInput.value.trim();
     const turma = turmaSelect.value;
@@ -22,19 +20,23 @@ form.addEventListener("submit", (event) => {
     mensagem.classList.remove("sucesso");
 
     if (nome === "") {
+        event.preventDefault();
         erroNome.textContent = "Informe o nome do estudante.";
         formularioValido = false;
     } else if (nome.length < 3) {
+        event.preventDefault();
         erroNome.textContent = "O nome deve possuir pelo menos 3 caracteres.";
         formularioValido = false;
     }
 
-    if (ra === "") {
-        erroRa.textContent = "Informe o RA do estudante.";
+    if (!/^\d{12}$/.test(ra)) {
+        event.preventDefault();
+        erroRa.textContent = "O RA deve possuir exatamente 12 números.";
         formularioValido = false;
     }
 
     if (turma === "") {
+        event.preventDefault();
         erroTurma.textContent = "Selecione uma turma.";
         formularioValido = false;
     }
@@ -45,5 +47,5 @@ form.addEventListener("submit", (event) => {
     }
 
     mensagem.classList.add("sucesso");
-    mensagem.textContent = "Dados validados. Aguardando integração com o servidor.";
+    mensagem.textContent = "Salvando estudante...";
 });

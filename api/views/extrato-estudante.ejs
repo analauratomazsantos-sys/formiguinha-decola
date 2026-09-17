@@ -74,8 +74,8 @@
                                     <td><%= movimentacao.data %></td>
                                     <td><%= movimentacao.tipo %></td>
                                     <td><%= movimentacao.criterio %></td>
-                                    <td class="<%= movimentacao.tipo === 'DEBITO' ? 'valor-negativo' : 'valor-positivo' %>">
-                                        <%= movimentacao.tipo === "DEBITO" ? "-" : "+" %><%= Number(movimentacao.valor).toFixed(2).replace(".", ",") %> LRCash
+                                    <td class="<%= movimentacao.tipo === 'SAIDA' ? 'valor-negativo' : 'valor-positivo' %>">
+                                        <%= movimentacao.tipo === "SAIDA" ? "-" : "+" %><%= Number(movimentacao.valor).toFixed(2).replace(".", ",") %> LRCash
                                     </td>
                                     <td><%= movimentacao.responsavel || "—" %></td>
                                 </tr>

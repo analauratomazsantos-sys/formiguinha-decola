@@ -1,19 +1,21 @@
 {
   "name": "formiguinha-decola",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projeto Formiguinha Decola - Banco Formigueiro",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
-},
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.18.2",
     "mysql2": "^3.24.3"
   },
   "devDependencies": {

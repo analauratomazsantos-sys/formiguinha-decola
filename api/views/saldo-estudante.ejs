@@ -45,6 +45,10 @@
             <p id="mensagem-saldo" class="mensagem-cadastro" aria-live="polite"></p>
         </form>
 
+        <% if (sucesso) { %>
+            <p class="mensagem-cadastro sucesso">Crédito registrado com sucesso.</p>
+        <% } %>
+
         <% if (estudanteSelecionado && saldo !== null) { %>
             <section class="resultado-saldo">
                 <p>Saldo disponível</p>
