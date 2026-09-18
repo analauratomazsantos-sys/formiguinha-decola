@@ -9,10 +9,12 @@
 <body class="pagina-painel">
     <header class="topo-painel">
         <div class="marca-painel">
-            <span class="icone-formiga">🐜</span>
+            <img src="/images/mascote-formiguinha.png"
+            alt="Mascote Formiguinha"
+            class="icone-formiga">
             <div>
-                <h1>Banco Formigueiro</h1>
-                <p>Projeto Formiguinha Decola</p>
+                <h1>Formiguinha Decola</h1>
+                <p>Banco Formigueiro</p>
             </div>
         </div>
         <a class="botao-sair" href="/sair">Sair</a>
@@ -21,33 +23,43 @@
     <main class="conteudo-painel">
         <section class="boas-vindas">
             <h2>Painel principal</h2>
-            <p>Escolha uma função para começar.</p>
+            <p>Acesse os módulos e acompanhe as principais ações do sistema.</p>
         </section>
 
-        <section class="grade-funcoes" aria-label="Funções do sistema">
-            <a class="cartao-funcao" href="/estudantes/novo">
-                <h3>Cadastrar estudante</h3>
-                <p>Inserir os dados do estudante e selecionar sua turma.</p>
+        <section class="grade-funcoes" aria-label="Módulos do sistema">
+            <a class="cartao-funcao" href="/estudantes">
+                <h3>Estudantes</h3>
+                <p>Consultar os estudantes cadastrados e acessar seus dados.</p>
             </a>
 
-            <a class="cartao-funcao" href="/estudantes">
-                <h3>Lista de estudantes</h3>
-                <p>Consultar estudantes cadastrados e suas turmas.</p>
+            <a class="cartao-funcao" href="/estudantes/novo">
+                <h3>Cadastrar estudante</h3>
+                <p>Adicionar um estudante e vinculá-lo à sua turma.</p>
             </a>
 
             <a class="cartao-funcao" href="/lrcash">
-                <h3>Lançar LRCash</h3>
-                <p>Registrar uma movimentação e selecionar o critério.</p>
+                <h3>Banco Formigueiro</h3>
+                <p>Registrar créditos de LRCash e acompanhar as movimentações.</p>
             </a>
 
             <a class="cartao-funcao" href="/saldo">
-                <h3>Consultar saldo</h3>
-                <p>Visualizar o saldo atual de um estudante.</p>
+                <h3>Saldo</h3>
+                <p>Consultar o saldo atual de LRCash de cada estudante.</p>
             </a>
 
             <a class="cartao-funcao" href="/extrato">
-                <h3>Consultar extrato</h3>
-                <p>Visualizar o histórico das movimentações.</p>
+                <h3>Extrato</h3>
+                <p>Visualizar o histórico de movimentações de LRCash.</p>
+            </a>
+
+            <a class="cartao-funcao" href="/folhapay">
+            <h3>FolhaPay</h3>
+            <p>Área preparada para identificação, cartão e QR Code dos estudantes.</p>
+            </a>
+
+            <a class="cartao-funcao" href="/ocorrencias">
+                <h3>Ocorrências</h3>
+                <p>Área preparada para advertências, medidas disciplinares e multas em LRCash.</p>
             </a>
         </section>
     </main>
