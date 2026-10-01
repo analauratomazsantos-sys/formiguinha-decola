@@ -1,3 +1,5 @@
 node_modules/
 .env
 database/02_seed_railway.sql
+importar_lrcash_tarefas.js
+importar_lrcash_tarefas.js
