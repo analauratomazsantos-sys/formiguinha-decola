@@ -44,7 +44,7 @@ async function buscarEstudantePorRa(ra) {
 
 async function buscarCriterio(codigo) {
     const mapa = {
-        FREQUENCIA: "Frequência",
+        FREQUENCIA: "FrequÃªncia",
         SALA_DO_FUTURO: "Tarefa da Sala do Futuro"
     };
 
@@ -77,7 +77,7 @@ async function processarLogin(req, res) {
         const senha = String(req.body.senha || "");
 
         if (!email || !senha) {
-            return res.status(400).send("E-mail e senha são obrigatórios.");
+            return res.status(400).send("E-mail e senha sÃ£o obrigatÃ³rios.");
         }
 
         const [rows] = await db.execute(`
@@ -90,13 +90,13 @@ async function processarLogin(req, res) {
         const usuario = rows[0];
 
         if (!usuario || !usuario.ativo) {
-            return res.status(401).send("E-mail ou senha inválidos.");
+            return res.status(401).send("E-mail ou senha invÃ¡lidos.");
         }
 
         const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
 
         if (!senhaValida) {
-            return res.status(401).send("E-mail ou senha inválidos.");
+            return res.status(401).send("E-mail ou senha invÃ¡lidos.");
         }
 
         req.session.usuario = {
@@ -115,7 +115,7 @@ async function processarLogin(req, res) {
 function sair(req, res) {
     req.session.destroy((erro) => {
         if (erro) {
-            console.error("Erro ao encerrar sessão:", erro);
+            console.error("Erro ao encerrar sessÃ£o:", erro);
         }
 
         res.clearCookie("connect.sid");
@@ -140,15 +140,15 @@ async function criarEstudante(req, res) {
         const turma = String(req.body.turma || "").trim();
 
         if (nome.length < 3 || nome.length > 150) {
-            return res.status(400).send("Nome inválido.");
+            return res.status(400).send("Nome invÃ¡lido.");
         }
 
         if (!/^\d{12}$/.test(ra)) {
-            return res.status(400).send("O RA deve conter exatamente 12 números.");
+            return res.status(400).send("O RA deve conter exatamente 12 nÃºmeros.");
         }
 
         if (!turma) {
-            return res.status(400).send("A turma é obrigatória.");
+            return res.status(400).send("A turma Ã© obrigatÃ³ria.");
         }
 
         const [turmas] = await connection.execute(`
@@ -159,7 +159,7 @@ async function criarEstudante(req, res) {
         `, [turma]);
 
         if (turmas.length === 0) {
-            return res.status(400).send("Turma não encontrada.");
+            return res.status(400).send("Turma nÃ£o encontrada.");
         }
 
         const [existentes] = await connection.execute(`
@@ -170,7 +170,7 @@ async function criarEstudante(req, res) {
         `, [ra]);
 
         if (existentes.length > 0) {
-            return res.status(409).send("Já existe um estudante com esse RA.");
+            return res.status(409).send("JÃ¡ existe um estudante com esse RA.");
         }
 
         const qrCode = crypto.randomBytes(24).toString("hex");
@@ -222,7 +222,7 @@ await connection.execute(`
         console.error("Erro ao cadastrar estudante:", erro);
 
         if (erro.code === "ER_DUP_ENTRY") {
-            return res.status(409).send("Não foi possível cadastrar: RA ou QR Code já cadastrado.");
+            return res.status(409).send("NÃ£o foi possÃ­vel cadastrar: RA ou QR Code jÃ¡ cadastrado.");
         }
 
         return res.status(500).send("Erro interno ao cadastrar estudante.");
@@ -246,7 +246,7 @@ async function exibirLancamentoLRCash(req, res) {
         const estudantes = await buscarEstudantes();
         res.render("lancamento-lrcash", { estudantes });
     } catch (erro) {
-        console.error("Erro ao preparar lançamento:", erro);
+        console.error("Erro ao preparar lanÃ§amento:", erro);
         res.status(500).send("Erro ao carregar estudantes.");
     }
 }
@@ -261,7 +261,7 @@ async function criarLancamentoLRCash(req, res) {
         const observacao = String(req.body.observacao || "").trim();
 
         if (!/^\d{12}$/.test(ra)) {
-            return res.status(400).send("Estudante inválido.");
+            return res.status(400).send("Estudante invÃ¡lido.");
         }
 
         if (!Number.isFinite(valor) || valor <= 0) {
@@ -269,22 +269,22 @@ async function criarLancamentoLRCash(req, res) {
         }
 
         if (observacao.length > 255) {
-            return res.status(400).send("A observação é muito longa.");
+            return res.status(400).send("A observaÃ§Ã£o Ã© muito longa.");
         }
 
         const estudante = await buscarEstudantePorRa(ra);
         if (!estudante || !estudante.id_conta) {
-            return res.status(404).send("Conta do estudante não encontrada.");
+            return res.status(404).send("Conta do estudante nÃ£o encontrada.");
         }
 
         const criterio = await buscarCriterio(codigoCriterio);
         if (!criterio) {
-            return res.status(400).send("Critério inválido ou inativo.");
+            return res.status(400).send("CritÃ©rio invÃ¡lido ou inativo.");
         }
 
         await connection.beginTransaction();
 
-        // Bloqueia a conta durante a operação para evitar inconsistência de saldo.
+        // Bloqueia a conta durante a operaÃ§Ã£o para evitar inconsistÃªncia de saldo.
         const [contas] = await connection.execute(`
             SELECT id_conta, saldo
             FROM conta
@@ -294,7 +294,7 @@ async function criarLancamentoLRCash(req, res) {
 
         if (contas.length === 0) {
             await connection.rollback();
-            return res.status(400).send("A conta do estudante está inativa ou não existe.");
+            return res.status(400).send("A conta do estudante estÃ¡ inativa ou nÃ£o existe.");
         }
 
         await connection.execute(`
@@ -314,7 +314,7 @@ async function criarLancamentoLRCash(req, res) {
         return res.redirect(`/saldo?estudanteId=${encodeURIComponent(ra)}&sucesso=1`);
     } catch (erro) {
         await connection.rollback().catch(() => {});
-        console.error("Erro ao lançar LRCash:", erro);
+        console.error("Erro ao lanÃ§ar LRCash:", erro);
         return res.status(500).send("Erro interno ao registrar LRCash.");
     } finally {
         connection.release();
@@ -333,7 +333,7 @@ async function exibirSaldo(req, res) {
             estudanteSelecionado = await buscarEstudantePorRa(ra);
 
             if (!estudanteSelecionado) {
-                return res.status(404).send("Estudante não encontrado.");
+                return res.status(404).send("Estudante nÃ£o encontrado.");
             }
 
             saldo = estudanteSelecionado.saldo;
@@ -363,7 +363,7 @@ async function exibirExtrato(req, res) {
             estudanteSelecionado = await buscarEstudantePorRa(ra);
 
             if (!estudanteSelecionado) {
-                return res.status(404).send("Estudante não encontrado.");
+                return res.status(404).send("Estudante nÃ£o encontrado.");
             }
 
             const [rows] = await db.execute(`
@@ -401,7 +401,163 @@ async function redirecionarConsultaEstudante(req, res) {
     return res.redirect(`/saldo?estudanteId=${encodeURIComponent(ra)}`);
 }
 
+
+async function exibirAcessoAluno(req, res) {
+    if (req.session.aluno) {
+        return res.redirect("/minha-conta");
+    }
+
+    return res.render("login-aluno", { erro: null });
+}
+
+async function processarAcessoAluno(req, res) {
+    try {
+        const codigo = String(req.body.codigo || "")
+            .trim()
+            .toUpperCase();
+
+        if (!/^[A-Z0-9]{6}$/.test(codigo)) {
+            return res.status(400).render("login-aluno", {
+                erro: "Digite um codigo de acesso valido com 6 caracteres."
+            });
+        }
+
+        const [rows] = await db.execute(
+            "SELECT " +
+                "a.id_aluno, a.nome, a.codigo_acesso, " +
+                "t.nome_turma, c.id_conta, c.saldo " +
+            "FROM aluno AS a " +
+            "INNER JOIN turma AS t ON t.id_turma = a.id_turma " +
+            "INNER JOIN conta AS c ON c.id_aluno = a.id_aluno " +
+            "WHERE a.codigo_acesso = ? AND c.status = 1 " +
+            "LIMIT 1",
+            [codigo]
+        );
+
+        const aluno = rows[0];
+
+        if (!aluno) {
+            return res.status(401).render("login-aluno", {
+                erro: "Codigo de acesso nao encontrado."
+            });
+        }
+
+        req.session.aluno = {
+            id: aluno.id_aluno,
+            nome: aluno.nome
+        };
+
+        return req.session.save(() => {
+            res.redirect("/minha-conta");
+        });
+    } catch (erro) {
+        console.error("Erro no acesso do aluno:", erro);
+
+        return res.status(500).render("login-aluno", {
+            erro: "Nao foi possivel acessar a conta agora."
+        });
+    }
+}
+
+async function acessarPorQr(req, res) {
+    try {
+        const token = String(req.params.token || "").trim();
+
+        if (!/^[a-f0-9]{64}$/i.test(token)) {
+            return res.status(404).send("Acesso invalido.");
+        }
+
+        const [rows] = await db.execute(
+            "SELECT a.id_aluno, a.nome " +
+            "FROM aluno AS a " +
+            "INNER JOIN conta AS c ON c.id_aluno = a.id_aluno " +
+            "WHERE a.qr_code = ? AND c.status = 1 " +
+            "LIMIT 1",
+            [token]
+        );
+
+        const aluno = rows[0];
+
+        if (!aluno) {
+            return res.status(404).send("Conta nao encontrada.");
+        }
+
+        req.session.aluno = {
+            id: aluno.id_aluno,
+            nome: aluno.nome
+        };
+
+        return req.session.save(() => {
+            res.redirect("/minha-conta");
+        });
+    } catch (erro) {
+        console.error("Erro no acesso por QR Code:", erro);
+        return res.status(500).send("Nao foi possivel acessar a conta.");
+    }
+}
+
+async function exibirMinhaConta(req, res) {
+    try {
+        if (!req.session.aluno) {
+            return res.redirect("/aluno");
+        }
+
+        const [alunos] = await db.execute(
+            "SELECT " +
+                "a.id_aluno, a.nome, a.ra, t.nome_turma, " +
+                "c.id_conta, c.saldo " +
+            "FROM aluno AS a " +
+            "INNER JOIN turma AS t ON t.id_turma = a.id_turma " +
+            "INNER JOIN conta AS c ON c.id_aluno = a.id_aluno " +
+            "WHERE a.id_aluno = ? AND c.status = 1 " +
+            "LIMIT 1",
+            [req.session.aluno.id]
+        );
+
+        const aluno = alunos[0];
+
+        if (!aluno) {
+            delete req.session.aluno;
+            return res.redirect("/aluno");
+        }
+
+        const [movimentacoes] = await db.execute(
+            "SELECT " +
+                "m.id_movimentacao, m.valor, m.tipo, m.data_hora, " +
+                "m.descricao_observacao, cr.nome_criterio " +
+            "FROM movimentacao AS m " +
+            "INNER JOIN criterio AS cr " +
+                "ON cr.id_criterio = m.id_criterio " +
+            "WHERE m.id_conta = ? " +
+            "ORDER BY m.data_hora DESC, m.id_movimentacao DESC " +
+            "LIMIT 100",
+            [aluno.id_conta]
+        );
+
+        return res.render("minha-conta", {
+            aluno,
+            movimentacoes
+        });
+    } catch (erro) {
+        console.error("Erro ao abrir conta do aluno:", erro);
+        return res.status(500).send("Erro ao consultar a conta.");
+    }
+}
+
+function sairAluno(req, res) {
+    delete req.session.aluno;
+
+    return req.session.save(() => {
+        res.redirect("/aluno");
+    });
+}
+
 module.exports = {
+    exibirAcessoAluno,
+    processarAcessoAluno,
+    acessarPorQr,
+    exibirMinhaConta,
+    sairAluno,
     exibirLogin,
     processarLogin,
     sair,
