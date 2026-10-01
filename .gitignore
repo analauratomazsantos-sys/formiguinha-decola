@@ -4,3 +4,4 @@ database/02_seed_railway.sql
 importar_lrcash_tarefas.js
 importar_lrcash_tarefas.js
 ativar_acesso_aluno.js
+importar_ensino_medio.js
