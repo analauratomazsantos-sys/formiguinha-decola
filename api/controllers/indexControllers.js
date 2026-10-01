@@ -174,6 +174,31 @@ async function criarEstudante(req, res) {
         }
 
         const qrCode = crypto.randomBytes(24).toString("hex");
+const codigoAcesso = crypto.randomBytes(3)
+    .toString("hex")
+    .toUpperCase();
+
+await connection.beginTransaction();
+
+await connection.execute(`
+    INSERT INTO aluno
+        (
+            ra,
+            nome,
+            telefone,
+            data_nascimento,
+            id_turma,
+            qr_code,
+            codigo_acesso
+        )
+    VALUES (?, ?, NULL, NULL, ?, ?, ?)
+`, [
+    ra,
+    nome,
+    turmas[0].id_turma,
+    qrCode,
+    codigoAcesso
+]);
 
         await connection.beginTransaction();
 
