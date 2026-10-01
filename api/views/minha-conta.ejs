@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha conta - Formiguinha Decola</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <style>
+    body {
+      background: #f3f6fb;
+      color: #172033;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .carteira {
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 22px 14px 40px;
+    }
+
+    .topo-carteira {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .topo-carteira h1 {
+      color: #00347b;
+      font-size: 1.4rem;
+      margin: 0;
+    }
+
+    .sair-aluno {
+      color: #9c1c1c;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .cartao-saldo {
+      background: linear-gradient(135deg, #00347b, #1659a8);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 52, 123, 0.22);
+      color: white;
+      padding: 24px;
+    }
+
+    .cartao-saldo p {
+      margin: 6px 0;
+    }
+
+    .nome-aluno {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .valor-saldo {
+      color: #fdc40a;
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 14px 0 4px;
+    }
+
+    .extrato {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .extrato h2 {
+      color: #00347b;
+      font-size: 1.2rem;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .movimento {
+      align-items: center;
+      border-top: 1px solid #e7eaf0;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr auto;
+      padding: 16px 20px;
+    }
+
+    .movimento strong,
+    .movimento small {
+      display: block;
+    }
+
+    .movimento small {
+      color: #677386;
+      margin-top: 4px;
+    }
+
+    .entrada {
+      color: #19743b;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .saida {
+      color: #b3261e;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .sem-movimentos {
+      color: #677386;
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      .valor-saldo {
+        font-size: 2.1rem;
+      }
+
+      .movimento {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="carteira">
+    <div class="topo-carteira">
+      <h1>Formiguinha Decola</h1>
+      <a class="sair-aluno" href="/aluno/sair">
+        <i class="bi bi-box-arrow-right"></i>
+        Sair
+      </a>
+    </div>
+
+    <section class="cartao-saldo">
+      <p class="nome-aluno"><%= aluno.nome %></p>
+      <p>Turma: <%= aluno.nome_turma %></p>
+      <p class="valor-saldo">
+        <%= Number(aluno.saldo).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }) %>
+      </p>
+      <p>LRCash dispon&iacute;veis</p>
+    </section>
+
+    <section class="extrato">
+      <h2>
+        <i class="bi bi-clock-history"></i>
+        Meu extrato
+      </h2>
+
+      <% if (!movimentacoes.length) { %>
+        <div class="sem-movimentos">
+          Nenhuma movimenta&ccedil;&atilde;o encontrada.
+        </div>
+      <% } %>
+
+      <% movimentacoes.forEach(function(movimento) { %>
+        <div class="movimento">
+          <div>
+            <strong><%= movimento.nome_criterio %></strong>
+            <small>
+              <%= movimento.descricao_observacao || "Movimentacao LRCash" %>
+            </small>
+            <small>
+              <%= new Date(movimento.data_hora).toLocaleString(
+                "pt-BR",
+                { timeZone: "America/Sao_Paulo" }
+              ) %>
+            </small>
+          </div>
+
+          <div class="<%= movimento.tipo === "ENTRADA"
+            ? "entrada"
+            : "saida" %>">
+            <%= movimento.tipo === "ENTRADA" ? "+" : "-" %>
+            <%= Number(movimento.valor).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }) %>
+          </div>
+        </div>
+      <% }); %>
+    </section>
+  </main>
+
+</body>
+</html>

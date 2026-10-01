@@ -8,9 +8,16 @@ const { exigirLogin } = require("../middlewares/authMiddleware.js");
 router.get("/", indexControllers.exibirLogin);
 router.get("/login", indexControllers.exibirLogin);
 router.post("/login", indexControllers.processarLogin);
+
+router.get("/aluno", indexControllers.exibirAcessoAluno);
+router.post("/aluno", indexControllers.processarAcessoAluno);
+router.get("/aluno/sair", indexControllers.sairAluno);
+router.get("/q/:token", indexControllers.acessarPorQr);
+router.get("/minha-conta", indexControllers.exibirMinhaConta);
+
 router.get("/sair", indexControllers.sair);
 
-// Área protegida
+// Ãrea protegida
 router.get("/painel", exigirLogin, indexControllers.exibirPainel);
 
 router.get("/estudantes/novo", exigirLogin, indexControllers.exibirCadastroEstudante);
