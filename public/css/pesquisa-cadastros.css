@@ -1,0 +1,64 @@
+.pesquisa-cadastros { margin: 16px 0 20px; min-width: 0; width: 100%; }
+.pesquisa-cadastros > label { display: block; margin: 0 0 8px; color: inherit; font-size: .95rem; font-weight: 600; }
+.linha-pesquisa-cadastros { display: flex; align-items: stretch; gap: 10px; min-width: 0; }
+.linha-pesquisa-cadastros input { box-sizing: border-box; flex: 1 1 auto; width: 100%; min-width: 0; min-height: 46px; padding: 11px 12px; border: 1px solid #99acc6; border-radius: 9px; background: white; color: #172033; font: inherit; }
+.linha-pesquisa-cadastros button { box-sizing: border-box; flex: 0 0 auto; width: auto; min-height: 46px; padding: 10px 14px; border: 1px solid #00347b; border-radius: 9px; background: white; color: #00347b; font: inherit; font-weight: 600; cursor: pointer; }
+.linha-pesquisa-cadastros button:disabled { opacity: .55; cursor: not-allowed; }
+.pesquisa-cadastros input:focus-visible, .pesquisa-cadastros button:focus-visible { outline: 3px solid var(--cor-acao, #00347b); outline-offset: 3px; }
+.pesquisa-cadastros .retorno-pesquisa { margin: 8px 0 0; font-size: .85rem; line-height: 1.5; color: #506178; }
+.mais-pesquisa { margin: 16px 0; }
+.resultados-pesquisa-caixa { margin: 0 0 18px; padding: 0; list-style: none; max-height: 300px; overflow-y: auto; }
+.resultados-pesquisa-caixa li { margin: 0 0 8px; }
+.resultados-pesquisa-caixa .selecionar-pesquisa { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 100%; text-align: left; overflow-wrap: anywhere; }
+.selecionar-pesquisa span { font-size: .85rem; font-weight: 400; }
+.sem-movimentos[hidden], .movimento[hidden], .tabela-estudantes tr[hidden], .mais-pesquisa[hidden] { display: none !important; }
+@media (max-width: 360px) { .linha-pesquisa-cadastros { flex-wrap: wrap; } .linha-pesquisa-cadastros input { flex-basis: 100%; } .linha-pesquisa-cadastros button { margin-left: auto; } }
+
+/* As cinco telas que usam estilos.css possuem regras globais de formulário.
+   O campo recebe o espaço livre; Limpar fica pequeno e ao lado da pesquisa. */
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .pesquisa-cadastros { margin: 8px 0 12px; }
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .pesquisa-cadastros > label { margin-bottom: 6px; font-size: .875rem; }
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .linha-pesquisa-cadastros { align-items: center; flex-wrap: nowrap; gap: 8px; }
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .linha-pesquisa-cadastros input {
+    flex: 1 1 0%; width: 0; min-width: 0; height: 40px; min-height: 40px; margin: 0;
+    padding: 8px 10px; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.25;
+    color: #172033; text-indent: 0; letter-spacing: normal;
+}
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .linha-pesquisa-cadastros .limpar-pesquisa {
+    display: inline-flex; align-items: center; justify-content: center;
+    flex: 0 0 auto; width: auto; min-width: 68px; max-width: 80px; height: 40px; min-height: 40px;
+    margin: 0; padding: 0 10px; font-size: 14px; line-height: 1.25; white-space: nowrap; transform: none;
+}
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .pesquisa-cadastros .retorno-pesquisa { margin-top: 5px; font-size: .8rem; }
+/* O botão Limpar já está ao lado do campo; evita um segundo X sobre o texto. */
+body.pagina-modulo:is(.pagina-lista, .pagina-formulario) .linha-pesquisa-cadastros input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+/* Pesquisa e escolha no próprio campo Estudante. */
+.seletor-estudante-original[hidden] { display: none !important; }
+.seletor-estudante-pesquisavel { position: relative; width: 100%; min-width: 0; }
+.seletor-estudante-pesquisavel .linha-seletor-estudante { display: flex; align-items: center; min-width: 0; min-height: 46px; border: 1px solid #99acc6; border-radius: 8px; background: white; }
+.seletor-estudante-pesquisavel .linha-seletor-estudante:focus-within { border-color: var(--cor-acao, #00347b); box-shadow: 0 0 0 2px var(--fundo-modulo, #e8eef8); }
+body.pagina-modulo .seletor-estudante-pesquisavel .linha-seletor-estudante input {
+    box-sizing: border-box; flex: 1 1 0%; width: 0; min-width: 0; min-height: 44px; padding: 10px;
+    border: 0; border-radius: 8px; outline: none; box-shadow: none; margin: 0;
+    background: white; color: #172033; font: 16px/1.4 Arial, Helvetica, sans-serif; text-indent: 0;
+}
+body.pagina-modulo .seletor-estudante-pesquisavel .linha-seletor-estudante button {
+    box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center;
+    flex: 0 0 auto; width: auto; min-height: 34px; margin: 3px 3px 3px 0; padding: 0 8px;
+    border: 0; border-radius: 6px; background: white; color: var(--cor-acao, #00347b);
+    font: 600 13px/1 Arial, Helvetica, sans-serif; white-space: nowrap; transform: none; box-shadow: none;
+}
+body.pagina-modulo .seletor-estudante-pesquisavel .linha-seletor-estudante button:hover:not(:disabled) { background: var(--fundo-modulo, #e8eef8); color: var(--cor-acao, #00347b); transform: none; box-shadow: none; }
+body.pagina-modulo .seletor-estudante-pesquisavel .linha-seletor-estudante button:disabled { opacity: .45; cursor: not-allowed; }
+body.pagina-modulo .seletor-estudante-pesquisavel .linha-seletor-estudante .abrir-seletor-estudante { width: 32px; padding: 0; font-size: 18px; }
+body.pagina-modulo .seletor-estudante-pesquisavel .abrir-seletor-estudante::before { content: ""; display: block; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+.seletor-estudante-pesquisavel .opcoes-seletor-estudante { box-sizing: border-box; position: absolute; top: 48px; left: 0; z-index: 30; width: 100%; max-height: 240px; margin: 0; padding: 4px; overflow-y: auto; overscroll-behavior: contain; list-style: none; border: 1px solid #99acc6; border-radius: 8px; background: white; box-shadow: 0 8px 20px #17203322; }
+.seletor-estudante-pesquisavel .opcoes-seletor-estudante[hidden] { display: none !important; }
+.seletor-estudante-pesquisavel .opcao-seletor-estudante { padding: 10px; border-radius: 5px; color: #172033; cursor: pointer; overflow-wrap: anywhere; }
+.seletor-estudante-pesquisavel .opcao-seletor-estudante:hover, .seletor-estudante-pesquisavel .opcao-ativa { background: var(--fundo-modulo, #e8eef8); outline: 1px solid var(--cor-modulo, #00347b); outline-offset: -1px; }
+.opcao-seletor-estudante strong, .opcao-seletor-estudante small { display: block; }
+.opcao-seletor-estudante strong { font-size: .95rem; font-weight: 600; }
+.opcao-seletor-estudante small { margin-top: 2px; color: #506178; font-size: .8rem; }
+.vazio-seletor-estudante { padding: 12px 10px; color: #506178; font-size: .9rem; }
+.seletor-estudante-pesquisavel .retorno-seletor-estudante { margin: 5px 0 0; color: #506178; font-size: .8rem; line-height: 1.4; }

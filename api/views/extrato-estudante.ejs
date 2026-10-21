@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extrato do estudante | Formiguinha Decola</title>
     <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/pesquisa-cadastros.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script>
 </head>
-<body class="pagina-lista pagina-extrato">
-    <header class="topo-painel">
-        <div class="marca-painel">
-            <img src="/images/mascote-formiguinha.png" alt="Mascote Formiguinha" class="icone-formiga">
-            <div>
-                <h1>Banco Formigueiro</h1>
-                <p>Projeto Formiguinha Decola</p>
-            </div>
-        </div>
-        <a class="botao-sair" href="/painel">Voltar</a>
-    </header>
+<body class="pagina-lista pagina-extrato pagina-modulo" data-modulo="extrato">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
 
     <main class="conteudo-lista">
         <section class="cabecalho-formulario">

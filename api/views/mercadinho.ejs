@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<%= csrf %>">
+    <title>Caixa do Armazém | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/mercadinho.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/pesquisa-cadastros.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script>
+    <script src="/js/vendor/jsQR-1.4.0.js" defer></script>
+    <script src="/js/mercadinho-itens.js" defer></script>
+    <script src="/js/mercadinho-fotos.js" defer></script>
+    <script src="/js/mercadinho.js" defer></script>
+</head>
+<body class="pagina-modulo" data-modulo="armazem">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
+    <main class="caixa">
+        <div class="titulo">
+            <p class="sobretitulo">ARMAZÉM</p>
+            <h1>Caixa do Armazém</h1>
+            <p>Identifique o aluno, confira o valor e confirme a movimentação.</p>
+            <p class="operador">Operador(a): <strong><%= usuario.nome %></strong></p>
+            <% if (typeof acesso !== 'undefined' && acesso && acesso.perfil === 'FUNCIONARIO') { %>
+            <p>Créditos feitos no caixa também utilizam sua cota de distribuição. <a href="/minha-cota">Consultar minha cota</a></p>
+            <% } %>
+        </div>
+
+        <div id="mensagem" class="mensagem" role="status" aria-live="polite" tabindex="-1" hidden></div>
+
+        <section id="pendencia" class="aviso-pendente" aria-labelledby="titulo-pendencia" hidden>
+            <h2 id="titulo-pendencia">Há uma operação aguardando confirmação</h2>
+            <p>Confira esta operação antes de iniciar outra cobrança.</p>
+            <button id="tentar-novamente" type="button">Consultar / tentar novamente</button>
+            <a href="/login">Entrar novamente, se a sessão terminou</a>
+        </section>
+
+        <div class="colunas">
+            <section class="cartao" aria-labelledby="titulo-identificar">
+                <div class="etapa"><span>1</span><h2 id="titulo-identificar">Identificar o aluno</h2></div>
+                <p>Pesquise por nome, turma ou ano/série, leia o QR Code ou digite o código de acesso.</p>
+                <div id="pesquisa-estudante-caixa"></div>
+                <div class="botoes-camera">
+                    <button type="button" id="abrir-camera">Ler QR Code pela câmera</button>
+                    <button type="button" id="trocar-camera" class="secundario" hidden>Trocar câmera</button>
+                    <button type="button" id="parar-camera" class="secundario" hidden>Fechar câmera</button>
+                </div>
+                <div id="area-camera" class="camera" hidden>
+                    <video id="video-qr" muted playsinline aria-label="Câmera para leitura do QR Code"></video>
+                    <p>Aponte para o QR Code do cartão FolhaPay.</p>
+                </div>
+                <canvas id="canvas-qr" hidden></canvas>
+
+                <form id="buscar-aluno" autocomplete="off">
+                    <label for="codigo-aluno">QR Code ou código do aluno</label>
+                    <div class="busca">
+                        <input id="codigo-aluno" name="codigo" type="text" maxlength="2048" autocapitalize="off"
+                            spellcheck="false" placeholder="Digite o código ou use o leitor USB" required>
+                        <button id="botao-buscar" type="submit">Buscar</button>
+                    </div>
+                    <small>O leitor USB pode preencher este campo e enviar com Enter.</small>
+                </form>
+
+                <div id="aluno-selecionado" class="aluno" hidden>
+                    <div class="identidade-aluno">
+                    <div class="dados-identidade">
+                    <p class="sobretitulo">CONTA IDENTIFICADA</p>
+                    <h3 id="nome-aluno"></h3>
+                    <p>Turma: <strong id="turma-aluno"></strong></p>
+                    <p class="rotulo-saldo">Saldo disponível</p>
+                    <p class="saldo"><span id="saldo-aluno"></span> <small>LRCash</small></p>
+                    </div>
+                    <div class="quadro-foto">
+                        <img id="foto-aluno" alt="Foto de identificação do aluno selecionado" hidden>
+                        <span id="foto-ausente">Foto do aluno</span>
+                    </div>
+                    </div>
+                    <small id="status-foto" role="status" aria-live="polite">Foto ainda não cadastrada.</small>
+                    <button id="trocar-aluno" type="button" class="secundario">Trocar aluno</button>
+                </div>
+            </section>
+
+            <section class="cartao" aria-labelledby="titulo-movimentacao">
+                <div class="etapa"><span>2</span><h2 id="titulo-movimentacao">Registrar movimentação</h2></div>
+                <p id="orientacao-movimentacao">Identifique o aluno para liberar o lançamento.</p>
+                <form id="form-movimentacao" autocomplete="off">
+                    <fieldset id="campos-movimentacao" disabled>
+                        <legend class="sr-only">Dados da movimentação</legend>
+                        <label for="tipo-movimentacao">Operação</label>
+                        <select id="tipo-movimentacao" name="tipo">
+                            <option value="SAIDA">Compra — retirar LRCash</option>
+                            <option value="ENTRADA">Crédito — adicionar LRCash</option>
+                        </select>
+                        <fieldset id="itens-compra" class="itens-compra">
+                            <legend>Itens da compra</legend>
+                            <p>Informe o produto, a quantidade e o preço de uma unidade em LRCash.</p>
+                            <div id="lista-itens"></div>
+                            <button id="adicionar-item" type="button" class="secundario">Adicionar item</button>
+                            <small id="ajuda-itens" aria-live="polite">Preencha os itens para calcular o total.</small>
+                        </fieldset>
+                        <div id="grupo-descricao" hidden>
+                            <label id="rotulo-descricao" for="descricao">Motivo do crédito</label>
+                            <textarea id="descricao" name="descricao" rows="3" minlength="3" maxlength="200" required disabled
+                                placeholder="Ex.: devolução de uma compra"></textarea>
+                        </div>
+                        <label id="rotulo-valor" for="valor">Total da compra em LRCash</label>
+                        <input id="valor" name="valor" type="text" inputmode="decimal" maxlength="10"
+                            placeholder="0,00" required readonly>
+                        <small id="ajuda-valor">Total calculado automaticamente pela soma dos itens.</small>
+                        <div id="previsao" class="previsao" aria-live="polite">Informe o valor da operação.</div>
+                        <button id="revisar" class="botao-principal" type="submit">Conferir compra</button>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
+
+        <section id="recibo" class="cartao recibo" aria-labelledby="titulo-recibo" tabindex="-1" hidden>
+            <p class="sobretitulo">OPERAÇÃO CONFIRMADA</p>
+            <h2 id="titulo-recibo"></h2>
+            <p id="recibo-aluno"></p>
+            <p id="recibo-descricao"></p>
+            <dl class="valores-recibo">
+                <div><dt>Valor</dt><dd id="recibo-valor"></dd></div>
+                <div><dt>Saldo anterior</dt><dd id="recibo-anterior"></dd></div>
+                <div><dt>Saldo após a operação</dt><dd id="recibo-posterior"></dd></div>
+            </dl>
+            <p class="referencia" id="recibo-referencia"></p>
+            <p>A movimentação já consta no extrato da conta.</p>
+            <button id="proximo-aluno" type="button">Atender próximo aluno</button>
+        </section>
+
+        <p class="rodape">A leitura do cartão consulta a conta. O saldo só muda depois da confirmação.</p>
+    </main>
+
+    <template id="modelo-item">
+        <div class="item-compra">
+            <div class="item-campos">
+                <div class="campo-item-nome">
+                    <label class="rotulo-item-nome">Item</label>
+                    <input class="item-nome" type="text" maxlength="40" placeholder="Ex.: caderno" required>
+                </div>
+                <div>
+                    <label class="rotulo-item-quantidade">Quantidade</label>
+                    <input class="item-quantidade" type="text" inputmode="numeric" pattern="[0-9]{1,3}" maxlength="3" value="1" required>
+                </div>
+                <div>
+                    <label class="rotulo-item-preco">Preço unitário</label>
+                    <input class="item-preco" type="text" inputmode="decimal" maxlength="10" placeholder="0,00" required>
+                </div>
+            </div>
+            <div class="item-resumo">
+                <span>Subtotal: <strong class="item-subtotal">0,00</strong> LRCash</span>
+                <button type="button" class="remover-item secundario">Remover item</button>
+            </div>
+        </div>
+    </template>
+
+    <dialog id="confirmacao" aria-labelledby="titulo-confirmacao">
+        <h2 id="titulo-confirmacao">Conferir movimentação</h2>
+        <p id="confirmacao-aluno"></p>
+        <p id="confirmacao-descricao"></p>
+        <p class="valor-confirmacao" id="confirmacao-valor"></p>
+        <p id="confirmacao-saldo"></p>
+        <div class="acoes-dialogo">
+            <button id="cancelar-confirmacao" type="button" class="secundario">Voltar e corrigir</button>
+            <button id="confirmar" type="button">Confirmar compra</button>
+        </div>
+    </dialog>
+</body>
+</html>

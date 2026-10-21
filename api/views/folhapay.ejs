@@ -2,34 +2,69 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FolhaPay | Formiguinha Decola</title>
-    <link rel="stylesheet" href="/css/estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>FolhaPay digital | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/mercadinho.css">
+    <link rel="stylesheet" href="/css/folhapay.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/pesquisa-cadastros.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script>
 </head>
-
-<body class="pagina-formulario pagina-folhapay">
-
-    <header class="topo-painel">
-        <div class="marca-painel">
-            <img src="/images/mascote-formiguinha.png"
-                 alt="Mascote Formiguinha"
-                 class="icone-formiga">
-
-            <div>
-                <h1>Formiguinha Decola</h1>
-                <p>FolhaPay</p>
-            </div>
+<body class="pagina-modulo" data-modulo="folhapay">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
+    <main class="caixa">
+        <div class="titulo">
+            <p class="sobretitulo">IDENTIFICAÇÃO DO ESTUDANTE</p>
+            <h1>FolhaPay digital</h1>
+            <p><%= aluno ? 'Cartão individual com o mesmo QR cadastrado para o estudante.' : 'Encontre o estudante pelo nome ou pela turma e abra sua FolhaPay.' %></p>
         </div>
-
-        <a class="botao-sair" href="/painel">Voltar</a>
-    </header>
-
-    <main class="conteudo-formulario">
-        <section class="cabecalho-formulario">
-            <h2>FolhaPay</h2>
-            <p>Carteira digital dos estudantes do projeto.</p>
+        <% if (!aluno) { %>
+        <section class="cartao">
+            <label for="filtro-folhapay">Buscar estudante ou turma</label>
+            <input id="filtro-folhapay" type="search" autocomplete="off" placeholder="Digite o nome ou a turma">
+            <p id="quantidade-folhapay" role="status" aria-live="polite"><%= alunos.length %> estudantes cadastrados.</p>
+            <div class="lista-folhapay">
+                <% alunos.forEach((estudante, indice) => { %>
+                <a class="linha-folhapay" href="/folhapay/<%= estudante.id_aluno %>" <%- indice >= 50 ? 'hidden' : '' %>>
+                    <span><strong><%= estudante.nome %></strong><small><%= estudante.turma || 'Turma não informada' %></small></span>
+                    <span class="abrir-folhapay">Abrir FolhaPay</span>
+                </a>
+                <% }); %>
+            </div>
+            <p id="folhapay-sem-resultados" hidden>Nenhum estudante encontrado. Confira o nome ou a turma.</p>
+            <button id="mais-folhapay" type="button" class="secundario" <%- alunos.length <= 50 ? 'hidden' : '' %>>Mostrar mais estudantes</button>
         </section>
+        <% } else { %>
+        <a href="/folhapay" class="voltar-lista">Escolher outro estudante</a>
+        <div class="folhapay-apresentacao">
+            <article class="folhapay-folha" aria-label="FolhaPay individual de <%= aluno.nome %>">
+                <svg class="contorno-folha" viewBox="0 0 400 660" aria-hidden="true"><path d="M200 8 C90 95 18 235 18 330 C18 470 100 584 200 652 C300 584 382 470 382 330 C382 235 310 95 200 8 Z"/></svg>
+                <div class="folhapay-conteudo">
+                    <strong class="folhapay-marca">FORMIGUINHA DECOLA</strong>
+                    <span class="folhapay-escola">E.E. Profª Lydia Rocha Alves</span>
+                    <strong class="folhapay-nome-produto">FolhaPay</strong>
+                    <span class="folhapay-turma"><%= aluno.turma || 'Turma não informada' %></span>
+                    <strong class="folhapay-nome-aluno"><%= aluno.nome %></strong>
+                    <% if (aluno.qr_disponivel) { %>
+                    <img class="folhapay-qr" src="/folhapay/<%= aluno.id_aluno %>/qr.svg" alt="QR Code individual do estudante">
+                    <strong class="folhapay-rotulo">CÓDIGO INDIVIDUAL</strong>
+                    <span class="folhapay-codigo"><%= aluno.qr_code %></span>
+                    <% } else { %>
+                    <p class="folhapay-alerta">O QR Code deste aluno precisa ser conferido no cadastro.</p>
+                    <% } %>
+                    <% if (aluno.codigo_portal) { %>
+                    <strong class="folhapay-rotulo"><%= aluno.rotulo_portal %></strong>
+                    <span class="folhapay-acesso"><%= aluno.codigo_portal %></span>
+                    <% } else { %>
+                    <small>Confira o código de acesso ao portal no cadastro.</small>
+                    <% } %>
+                    <p class="folhapay-aviso">Seu QR Code e seu código são individuais.<br>Não compartilhe nem fotografe o código de outro estudante.</p>
+                    <small class="folhapay-rodape">Projeto Formiguinha Decola<br>Banco Formigueiro · FolhaPay · LRCash</small>
+                </div>
+            </article>
+        </div>
+        <% } %>
     </main>
-
 </body>
 </html>

@@ -1,0 +1,24 @@
+.linha-estudante-foto { display: flex; align-items: center; justify-content: space-between; gap: 18px; color: var(--texto); text-decoration: none; padding: 15px 0; border-bottom: 1px solid var(--borda); }
+.linha-estudante-foto > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.linha-estudante-foto:hover strong, .editar-foto, .escolher-estudante { color: var(--azul); }
+.editar-foto { font-size: .85rem; font-weight: bold; white-space: nowrap; }
+#mais-fotos { margin-top: 20px; }
+.editor-foto { max-width: 680px; }
+.resumo-editor { display: grid; grid-template-columns: minmax(0, 1fr) 150px; align-items: start; gap: 24px; }
+.resumo-editor h2 { margin: 8px 0; overflow-wrap: anywhere; }
+.foto-edicao { width: 150px; }
+.editor-foto .cadastro-foto { margin-top: 24px; }
+.escolher-estudante { display: inline-block; margin-top: 10px; }
+.navegacao-bloqueada { opacity: .6; cursor: wait; }
+.origens-foto, .botoes-camera-foto { display: flex; flex-wrap: wrap; gap: 10px; }
+.camera-foto { margin-top: 18px; padding: 16px; background: #f3f6fb; border: 1px solid var(--borda); border-radius: 12px; }
+.camera-foto > p:first-child { margin-top: 0; }
+#video-foto { display: block; width: 100%; max-height: 400px; aspect-ratio: 4 / 3; object-fit: contain; background: #172033; border-radius: 8px; }
+#status-camera-foto { font-size: .9rem; }
+.camera-foto button { flex: 1 1 130px; }
+.cadastro-foto > small { display: block; margin-top: 10px; }
+@media (max-width: 420px) {
+    .linha-estudante-foto { align-items: flex-start; flex-direction: column; gap: 5px; }
+    .resumo-editor { grid-template-columns: minmax(0, 1fr) 90px; gap: 14px; }
+    .foto-edicao { width: 90px; }
+}

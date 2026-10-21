@@ -1,0 +1,7 @@
+<section class="historico-cotas">
+    <h2>Últimas operações</h2><p>Até 100 registros mais recentes.</p>
+    <div class="tabela-container"><table class="tabela-estudantes"><thead><tr><th>Data</th><th>Operação</th><th>Destino</th><th>Valor</th><th>Cota após</th></tr></thead><tbody>
+    <% if (!historico.length) { %><tr><td colspan="5">Nenhuma operação registrada.</td></tr><% } %>
+    <% historico.forEach(r => { %><tr><td><%= new Date(r.criado_em).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }) %></td><td><%= r.origem === 'LIBERACAO' ? 'Liberação de cota' : r.origem === 'CAIXA' ? 'Crédito no caixa' : 'Crédito ao estudante' %></td><td><%= r.nome_aluno || r.nome_funcionario || '—' %><% if (r.turma) { %><small> · <%= r.turma %></small><% } %><small class="autor-cota">Por: <%= r.nome_operador || ('Usuário ' + r.id_operador) %></small></td><td><%= Number(r.valor).toFixed(2).replace('.', ',') %> LRCash</td><td><%= r.cota_posterior === null ? '—' : Number(r.cota_posterior).toFixed(2).replace('.', ',') %></td></tr><% }); %>
+    </tbody></table></div>
+</section>

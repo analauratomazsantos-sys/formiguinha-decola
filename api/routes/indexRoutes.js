@@ -4,6 +4,9 @@ const router = express.Router();
 const indexControllers = require("../controllers/indexControllers.js");
 const { exigirLogin } = require("../middlewares/authMiddleware.js");
 
+// Login individual, perfis e cotas; as rotas antigas de login/crédito ficam substituídas.
+router.use(require("./acessosRoutes.js"));
+
 // Acesso
 router.get("/", indexControllers.exibirLogin);
 router.get("/login", indexControllers.exibirLogin);
@@ -30,5 +33,11 @@ router.post("/lrcash", exigirLogin, indexControllers.criarLancamentoLRCash);
 
 router.get("/saldo", exigirLogin, indexControllers.exibirSaldo);
 router.get("/extrato", exigirLogin, indexControllers.exibirExtrato);
+
+// Caixa administrativo do Armazém do Formigueiro.
+router.use("/mercadinho", require("./mercadinhoRoutes.js"));
+router.use("/folhapay", require("./folhapayRoutes.js"));
+router.use("/fotos-estudantes", require("./gestaoFotosRoutes.js"));
+router.use("/cadastros/pesquisa", require("./pesquisaCadastrosRoutes.js"));
 
 module.exports = router;
