@@ -5,24 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocorrências | Formiguinha Decola</title>
     <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/modulos.css">
 </head>
 
-<body class="pagina-formulario pagina-ocorrencias">
+<body class="pagina-formulario pagina-ocorrencias pagina-modulo" data-modulo="ocorrencias">
 
-    <header class="topo-painel">
-        <div class="marca-painel">
-            <img src="/images/mascote-formiguinha.png"
-                 alt="Mascote Formiguinha"
-                 class="icone-formiga">
-
-            <div>
-                <h1>Formiguinha Decola</h1>
-                <p>Ocorrências</p>
-            </div>
-        </div>
-
-        <a class="botao-sair" href="/painel">Voltar</a>
-    </header>
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
 
     <main class="conteudo-formulario">
         <section class="cabecalho-formulario">

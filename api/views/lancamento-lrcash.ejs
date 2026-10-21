@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lançar LRCash | Formiguinha Decola</title>
     <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/pesquisa-cadastros.css">
+    <link rel="stylesheet" href="/css/acessos-funcionarios.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script>
 </head>
-<body class="pagina-formulario pagina-banco-formigueiro">
-    <header class="topo-painel">
-        <div class="marca-painel">
-            <img src="/images/mascote-formiguinha.png" alt="Mascote Formiguinha" class="icone-formiga">
-            <div>
-                <h1>Banco Formigueiro</h1>
-                <p>Projeto Formiguinha Decola</p>
-            </div>
-        </div>
-        <a class="botao-sair" href="/painel">Voltar</a>
-    </header>
+<body class="pagina-formulario pagina-banco-formigueiro pagina-modulo" data-modulo="banco">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
 
     <main class="conteudo-formulario">
         <section class="cabecalho-formulario">
@@ -24,7 +19,12 @@
             <p>Registre um crédito e identifique o critério da movimentação.</p>
         </section>
 
-        <form id="form-lrcash" class="formulario-estudante" action="/lrcash" method="POST" novalidate>
+        <% if (typeof acesso !== 'undefined' && acesso && acesso.perfil === 'FUNCIONARIO') { %>
+        <p class="resumo-cota">Disponível para distribuir: <strong><%= Number(acesso.saldo_cota).toFixed(2).replace('.', ',') %> LRCash</strong>. <a href="/minha-cota">Ver minha cota e histórico</a></p>
+        <% } %>
+        <form id="form-lrcash" data-operacao="DISTRIBUICAO" data-usuario="<%= typeof acesso !== 'undefined' && acesso ? acesso.id : '' %>" class="formulario-estudante" action="/lrcash" method="POST" novalidate>
+            <input type="hidden" name="_csrf" value="<%= typeof csrf !== 'undefined' ? csrf : '' %>">
+            <input type="hidden" name="id_operacao" value="<%= typeof idOperacao !== 'undefined' ? idOperacao : '' %>">
             <input type="hidden" id="tipo" name="tipo" value="ENTRADA">
 
             <p class="informacao-operacao">Tipo de movimentação: <strong>Crédito</strong></p>
@@ -48,6 +48,7 @@
                     <option value="">Selecione um critério</option>
                     <option value="FREQUENCIA">Frequência escolar</option>
                     <option value="SALA_DO_FUTURO">Tarefa da Sala do Futuro</option>
+                    <option value="DISTRIBUICAO_AULA">Distribuição em aula</option>
                 </select>
                 <small class="mensagem-campo" id="erro-criterio"></small>
             </div>
@@ -70,8 +71,13 @@
 
             <p id="mensagem-lrcash" class="mensagem-cadastro" aria-live="polite"></p>
         </form>
+        <section id="operacao-pendente" class="resumo-cota" hidden>
+            <p id="status-operacao" role="status" aria-live="polite"></p>
+            <button id="retentar-operacao" type="button">Consultar / tentar novamente</button>
+            <a href="/login">Entrar novamente</a>
+        </section>
     </main>
 
-    <script src="/js/lancamento-lrcash.js"></script>
+    <script src="/js/acessos-operacoes.js" defer></script>
 </body>
 </html>

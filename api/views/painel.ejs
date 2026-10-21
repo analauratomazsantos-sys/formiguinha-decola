@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel | Formiguinha Decola</title>
     <link rel="stylesheet" href="/css/estilos.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/acessos-funcionarios.css">
 </head>
-<body class="pagina-painel">
-    <header class="topo-painel">
+<body class="pagina-painel painel-compacto">
+    <header class="topo-painel cabecalho-modulo">
         <div class="marca-painel">
             <img src="/images/mascote-formiguinha.png"
             alt="Mascote Formiguinha"
@@ -24,43 +26,67 @@
         <section class="boas-vindas">
             <h2>Painel principal</h2>
             <p>Acesse os módulos e acompanhe as principais ações do sistema.</p>
+            <% if (typeof acesso !== 'undefined' && acesso) { %>
+            <p>Olá, <strong><%= acesso.nome %></strong>. <a href="/minha-senha">Alterar minha senha</a></p>
+            <% if (acesso.perfil === 'FUNCIONARIO') { %><p>Cota disponível para distribuir: <strong><%= Number(acesso.saldo_cota).toFixed(2).replace('.', ',') %> LRCash</strong>.</p><% } %>
+            <% } %>
         </section>
 
         <section class="grade-funcoes" aria-label="Módulos do sistema">
-            <a class="cartao-funcao" href="/estudantes">
+            <a class="cartao-funcao" data-modulo="armazem" href="/mercadinho">
+                <h3>Caixa do Armazém</h3>
+                <p>Ler o cartão FolhaPay, cobrar compras e registrar créditos em LRCash.</p>
+            </a>
+
+            <a class="cartao-funcao" data-modulo="estudantes" href="/estudantes">
                 <h3>Estudantes</h3>
                 <p>Consultar os estudantes cadastrados e acessar seus dados.</p>
             </a>
 
-            <a class="cartao-funcao" href="/estudantes/novo">
+            <% if (typeof acesso === 'undefined' || !acesso || acesso.perfil === 'ADMIN') { %>
+            <a class="cartao-funcao" data-modulo="fotos" href="/fotos-estudantes">
+                <h3>Fotos dos estudantes</h3>
+                <p>Cadastrar ou substituir a foto de identificação de cada estudante.</p>
+            </a>
+            <% } %>
+
+            <a class="cartao-funcao" data-modulo="cadastro" href="/estudantes/novo">
                 <h3>Cadastrar estudante</h3>
                 <p>Adicionar um estudante e vinculá-lo à sua turma.</p>
             </a>
 
-            <a class="cartao-funcao" href="/lrcash">
+            <a class="cartao-funcao" data-modulo="banco" href="/lrcash">
                 <h3>Banco Formigueiro</h3>
                 <p>Registrar créditos de LRCash e acompanhar as movimentações.</p>
             </a>
 
-            <a class="cartao-funcao" href="/saldo">
+            <a class="cartao-funcao" data-modulo="saldo" href="/saldo">
                 <h3>Saldo</h3>
                 <p>Consultar o saldo atual de LRCash de cada estudante.</p>
             </a>
 
-            <a class="cartao-funcao" href="/extrato">
+            <a class="cartao-funcao" data-modulo="extrato" href="/extrato">
                 <h3>Extrato</h3>
                 <p>Visualizar o histórico de movimentações de LRCash.</p>
             </a>
 
-            <a class="cartao-funcao" href="/folhapay">
+            <a class="cartao-funcao" data-modulo="folhapay" href="/folhapay">
             <h3>FolhaPay</h3>
-            <p>Área preparada para identificação, cartão e QR Code dos estudantes.</p>
+            <p>Consultar a FolhaPay digital e o QR Code individual de cada estudante.</p>
             </a>
 
-            <a class="cartao-funcao" href="/ocorrencias">
+            <% if (typeof acesso === 'undefined' || !acesso || acesso.perfil === 'ADMIN') { %>
+            <a class="cartao-funcao" data-modulo="ocorrencias" href="/ocorrencias">
                 <h3>Ocorrências</h3>
                 <p>Área preparada para advertências, medidas disciplinares e multas em LRCash.</p>
             </a>
+            <% } %>
+            <% if (typeof acesso !== 'undefined' && acesso) { %>
+            <a class="cartao-funcao" data-modulo="cotas" href="<%= acesso.perfil === 'ADMIN' ? '/equipe' : '/minha-cota' %>">
+                <h3><%= acesso.perfil === 'ADMIN' ? 'Cotas dos funcionários' : 'Minha cota' %></h3>
+                <p><%= acesso.perfil === 'ADMIN' ? 'Liberar LRCash para distribuição e acompanhar o histórico.' : 'Consultar o valor disponível para distribuir e os créditos realizados.' %></p>
+            </a>
+            <% } %>
         </section>
     </main>
 </body>
