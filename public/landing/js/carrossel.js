@@ -1,9 +1,8 @@
-
 const imagens = [
-    "images/escola-1.jpeg",
-    "images/escola-2.jpeg",
-    "images/escola-3.jpeg",
-    "images/escola-4.jpeg"
+    "/landing/images/escola-1.jpeg",
+    "/landing/images/escola-2.jpeg",
+    "/landing/images/escola-3.jpeg",
+    "/landing/images/escola-4.jpeg"
 ];
 
 
