@@ -17,6 +17,11 @@ app.set("view engine", "ejs");
 // Disponibiliza CSS, JavaScript e imagens
 app.use(express.static(path.join(__dirname, "public")));
 
+// Exibe a landing page na página inicial
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "landing", "index.html"));
+});
+
 // Importa e utiliza as rotas
 const indexRoutes = require("./api/routes/indexRoutes.js");
 app.use("/", indexRoutes);
