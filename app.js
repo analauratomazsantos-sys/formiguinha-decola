@@ -62,12 +62,12 @@ app.use(session({
 app.set("views", path.join(__dirname, "api", "views"));
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "public")));
-
-// Exibe a landing page institucional na página inicial
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "landing", "index.html"));
 });
+
+app.use(express.static(path.join(__dirname, "public")));
+
 const indexRoutes = require("./api/routes/indexRoutes.js");
 app.use("/", indexRoutes);
 
