@@ -1,0 +1,17 @@
+[data-modulo="cotas"] { --cor-modulo: #087c83; --fundo-modulo: #eaf8f7; --texto-botao: #ffffff; --cor-acao: #065b60; }
+body.pagina-modulo[data-modulo="cotas"] .tabela-estudantes th { background: var(--cor-modulo); color: var(--texto-botao); }
+body.pagina-modulo[data-modulo="cotas"] .tabela-estudantes tbody tr:hover { background: var(--fundo-modulo); }
+.resumo-cota { margin: 16px 0 24px; padding: 18px; border: 1px solid #99bfc2; border-radius: 10px; background: white; color: #172033; line-height: 1.6; }
+.resumo-cota[hidden] { display: none !important; }
+.resumo-cota a { color: var(--cor-acao, #00347b); }
+.resumo-cota .botao-novo { display: inline-flex; margin-top: 12px; }
+.valor-cota { display: block; margin: 8px 0; font-size: 2rem; color: var(--cor-acao, #00347b); }
+.resumo-equipe, .historico-cotas { margin-top: 32px; }
+.historico-cotas > p { margin: 8px 0 16px; }
+.autor-cota { display: block; margin-top: 4px; color: #506178; }
+.pagina-modulo .formulario-estudante textarea { box-sizing: border-box; width: 100%; padding: 12px; border: 1px solid #99acc6; border-radius: 8px; font: inherit; }
+.pagina-modulo .formulario-estudante button:disabled { opacity: .6; cursor: not-allowed; }
+#retentar-operacao { width: auto; margin: 10px 14px 6px 0; }
+.trocar-senha-funcionario { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 12px; box-sizing: border-box; white-space: nowrap; text-decoration: none; border: 1px solid; border-radius: 8px; font-weight: 600; }
+.orientacao-senha-funcionario { margin: 4px 0 20px; line-height: 1.6; }
+.erro-senha-funcionario { padding: 14px 16px; margin-bottom: 20px; border: 1px solid #b02b37; border-radius: 8px; color: #8a1822; background: #fff; line-height: 1.5; }

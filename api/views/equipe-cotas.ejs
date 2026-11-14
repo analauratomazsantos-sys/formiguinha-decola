@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Cotas dos funcionários | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css"><link rel="stylesheet" href="/css/modulos.css"><link rel="stylesheet" href="/css/pesquisa-cadastros.css"><link rel="stylesheet" href="/css/acessos-funcionarios.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script><script src="/js/acessos-operacoes.js" defer></script>
+</head><body class="pagina-lista pagina-modulo" data-modulo="cotas">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
+    <main class="conteudo-lista"><section class="cabecalho-formulario"><h2>Cotas dos funcionários</h2><p>Libere LRCash para distribuição aos estudantes e acompanhe o uso das cotas.</p></section>
+    <% if (sucesso) { %><p class="resumo-cota" role="status">Cota liberada com sucesso.</p><% } %>
+    <% if (typeof senhaAlterada !== 'undefined' && senhaAlterada) { %><p class="resumo-cota" role="status">Senha provisória atualizada. Informe a nova senha ao funcionário para que ele defina sua senha pessoal no próximo acesso.</p><% } %>
+    <form class="formulario-estudante" action="/equipe/liberar" method="POST" data-operacao="LIBERACAO" data-usuario="<%= acesso.id %>" novalidate>
+        <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="id_operacao" value="<%= idOperacao %>">
+        <div class="campo-formulario"><label for="funcionario">Funcionário</label><select id="funcionario" name="funcionarioId" required><option value="">Escolha um funcionário</option><% funcionarios.filter(f => Number(f.ativo) === 1).forEach(f => { %><option value="<%= f.id_usuario %>"><%= f.nome %> — <%= f.cargos %></option><% }); %></select></div>
+        <div class="campo-formulario"><label for="valor">Valor para acrescentar à cota</label><input id="valor" name="valor" type="number" min="0.01" step="0.01" max="999999.99" placeholder="Ex.: 100" required></div>
+        <div class="campo-formulario"><label for="observacao">Observação — opcional</label><textarea id="observacao" name="observacao" rows="2" maxlength="200" placeholder="Ex.: atividades desta semana"></textarea></div>
+        <p>A liberação soma este valor ao que o funcionário ainda tem disponível.</p><button class="botao-salvar" type="submit">Liberar cota</button><p class="mensagem-cadastro" data-mensagem-operacao role="status" aria-live="polite"></p>
+    </form>
+    <section id="operacao-pendente" class="resumo-cota" hidden><p id="status-operacao" role="status" aria-live="polite"></p><button id="retentar-operacao" type="button">Consultar / tentar novamente</button><a href="/login">Entrar novamente</a></section>
+    <section class="resumo-equipe" id="disponivel-funcionario"><h2>Disponível por funcionário</h2><div class="tabela-container"><table class="tabela-estudantes"><thead><tr><th>Funcionário</th><th>Cargos</th><th>Código de usuário</th><th>Disponível</th><th>Acesso</th><th>Ações</th></tr></thead><tbody>
+    <% funcionarios.forEach(f => { %><tr><td><%= f.nome %></td><td><%= f.cargos %></td><td><%= f.codigo_acesso %></td><td><%= Number(f.saldo_cota).toFixed(2).replace('.', ',') %> LRCash</td><td><%= Number(f.ativo) !== 1 ? 'Inativo' : Number(f.trocar_senha) === 1 ? 'Aguardando senha pessoal' : 'Ativo' %></td><td><% if (Number(f.ativo) === 1) { %><a class="botao-tabela trocar-senha-funcionario" href="/equipe/funcionarios/<%= f.id_usuario %>/senha" aria-label="Trocar senha de <%= f.nome %>">Trocar senha</a><% } else { %><span>Indisponível</span><% } %></td></tr><% }); %>
+    </tbody></table></div></section>
+    <%- include('partials/historico-cotas', { historico }) %>
+    </main>
+</body></html>

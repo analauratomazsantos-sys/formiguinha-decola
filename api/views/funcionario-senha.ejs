@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trocar senha do funcionário | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css"><link rel="stylesheet" href="/css/modulos.css"><link rel="stylesheet" href="/css/acessos-funcionarios.css">
+</head>
+<body class="pagina-formulario pagina-modulo" data-modulo="cotas">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
+    <main class="conteudo-formulario">
+        <section class="cabecalho-formulario"><h2>Trocar senha do funcionário</h2><p>Defina uma nova senha provisória para o acesso selecionado.</p></section>
+        <section class="resumo-cota" aria-label="Funcionário selecionado"><strong><%= funcionario.nome %></strong><p><%= funcionario.cargos %></p><p>Usuário: <strong><%= funcionario.email.toUpperCase() %></strong></p></section>
+        <% if (erro) { %><p class="erro-senha-funcionario" role="alert"><%= erro %></p><% } %>
+        <form action="/equipe/funcionarios/<%= funcionario.id_usuario %>/senha" method="POST" class="formulario-estudante">
+            <input type="hidden" name="_csrf" value="<%= csrf %>"><input type="hidden" name="versao" value="<%= funcionario.versao_sessao %>">
+            <div class="campo-formulario"><label for="senha-administrador">Sua senha de administração</label><input id="senha-administrador" name="senhaAdministrador" type="password" autocomplete="current-password" required></div>
+            <div class="campo-formulario"><label for="nova">Nova senha provisória do funcionário</label><input id="nova" name="nova" type="password" minlength="4" autocomplete="new-password" required><small>Use pelo menos 4 caracteres.</small></div>
+            <div class="campo-formulario"><label for="confirmacao">Repita a nova senha provisória</label><input id="confirmacao" name="confirmacao" type="password" minlength="4" autocomplete="new-password" required></div>
+            <p class="orientacao-senha-funcionario">No próximo acesso, o funcionário deverá definir sua senha pessoal. Informe a senha provisória somente a ele.</p>
+            <div class="acoes-formulario"><a class="botao-cancelar" href="/equipe#disponivel-funcionario">Cancelar</a><button class="botao-salvar" type="submit">Salvar nova senha</button></div>
+        </form>
+    </main>
+</body>
+</html>

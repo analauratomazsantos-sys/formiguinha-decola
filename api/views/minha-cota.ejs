@@ -1,0 +1,5 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Minha cota | Formiguinha Decola</title><link rel="stylesheet" href="/css/estilos.css"><link rel="stylesheet" href="/css/modulos.css"><link rel="stylesheet" href="/css/acessos-funcionarios.css"></head>
+<body class="pagina-lista pagina-modulo" data-modulo="cotas"><%- include('partials/cabecalho-modulo', { navegacaoFoto: false }) %>
+<main class="conteudo-lista"><section class="cabecalho-formulario"><h2>Minha cota de distribuição</h2><p><%= acesso.nome %></p></section>
+<section class="resumo-cota"><p>Disponível para distribuir aos estudantes</p><strong class="valor-cota"><%= Number(acesso.saldo_cota).toFixed(2).replace('.', ',') %> LRCash</strong><p>As liberações da administração aumentam sua cota. Os créditos aos estudantes, inclusive no caixa, são descontados dela.</p><a class="botao-novo" href="/lrcash">Lançar LRCash para um estudante</a></section>
+<%- include('partials/historico-cotas', { historico }) %></main></body></html>

@@ -1,0 +1,246 @@
+/* Cores por módulo: o card e a faixa do cabeçalho usam a mesma definição. */
+[data-modulo="armazem"] { --cor-modulo: #00347b; --fundo-modulo: #eef3fb; --texto-botao: #ffffff; --cor-acao: #00347b; }
+[data-modulo="estudantes"] { --cor-modulo: #7ac943; --fundo-modulo: #f0f9e8; --texto-botao: #000000; --cor-acao: #3d6522; }
+[data-modulo="fotos"] { --cor-modulo: #fdc40a; --fundo-modulo: #fff9dc; --texto-botao: #000000; --cor-acao: #7e6205; }
+[data-modulo="cadastro"] { --cor-modulo: #d1495b; --fundo-modulo: #fceef1; --texto-botao: #000000; --cor-acao: #923340; }
+[data-modulo="banco"] { --cor-modulo: #7b5ea7; --fundo-modulo: #f3eef9; --texto-botao: #ffffff; --cor-acao: #594379; }
+[data-modulo="saldo"] { --cor-modulo: #00a6a6; --fundo-modulo: #e8f8f7; --texto-botao: #000000; --cor-acao: #005b5b; }
+[data-modulo="extrato"] { --cor-modulo: #916c50; --fundo-modulo: #f7f1eb; --texto-botao: #ffffff; --cor-acao: #674c38; }
+[data-modulo="folhapay"] { --cor-modulo: #e67d22; --fundo-modulo: #fff2e6; --texto-botao: #000000; --cor-acao: #8a4b14; }
+[data-modulo="ocorrencias"] { --cor-modulo: #b44482; --fundo-modulo: #fbeef5; --texto-botao: #ffffff; --cor-acao: #822f5d; }
+
+/* O fundo claro acompanha o módulo em toda a página, inclusive em telas curtas. */
+body.pagina-modulo[data-modulo] {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--fundo-modulo, #f3f6fb);
+}
+
+/* Ações principais usam exatamente a cor da faixa do módulo, inclusive em diálogos. */
+body.pagina-modulo[data-modulo] :is(button, .botao-salvar, .botao-novo, .botao-tabela) {
+    background: var(--cor-modulo);
+    color: var(--texto-botao);
+    border-color: var(--cor-modulo);
+}
+body.pagina-modulo[data-modulo] :is(button, .botao-salvar, .botao-novo, .botao-tabela):hover:not(:disabled) {
+    background: var(--cor-modulo);
+    color: var(--texto-botao);
+    border-color: var(--cor-modulo);
+    box-shadow: 0 3px 10px #17203322;
+}
+/* Ações secundárias mantêm o contorno na mesma cor, com texto escuro legível. */
+body.pagina-modulo[data-modulo] :is(button.secundario, .botao-cancelar) {
+    background: white;
+    color: var(--cor-acao);
+    border-color: var(--cor-modulo);
+}
+body.pagina-modulo[data-modulo] :is(button.secundario, .botao-cancelar):hover:not(:disabled) {
+    background: var(--fundo-modulo);
+    color: var(--cor-acao);
+    border-color: var(--cor-modulo);
+}
+body.pagina-modulo[data-modulo] :is(button, .botao-salvar, .botao-novo, .botao-tabela, .botao-cancelar):focus-visible {
+    outline: 3px solid var(--cor-acao);
+    outline-offset: 3px;
+}
+body.pagina-modulo[data-modulo] :is(.editar-foto, .abrir-folhapay, .escolher-estudante, .voltar-lista) { color: var(--cor-acao); }
+
+/* Na Lista de estudantes, a tabela acompanha a cor dos botões do módulo. */
+body.pagina-modulo[data-modulo="estudantes"] .tabela-estudantes th {
+    background: var(--cor-modulo);
+    color: var(--texto-botao);
+}
+body.pagina-modulo[data-modulo="estudantes"] .tabela-estudantes tbody tr:hover {
+    background: var(--fundo-modulo);
+}
+
+/* Mantém o padrão do projeto sem depender da posição dos cards. */
+body.pagina-modulo .cabecalho-modulo,
+body.painel-compacto .cabecalho-modulo {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 24px;
+    width: 100%;
+    min-height: 134px;
+    margin: 0;
+    padding: 16px max(22px, calc((100% - 1200px) / 2));
+    background: #294f7c;
+    color: white;
+    border: 0;
+    border-bottom: 5px solid var(--cor-modulo, #00347b);
+    border-radius: 0;
+    box-shadow: 0 5px 12px #17203315;
+}
+body.pagina-modulo .cabecalho-modulo .marca-painel,
+body.painel-compacto .cabecalho-modulo .marca-painel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+}
+.cabecalho-modulo .marca-painel > div { min-width: 0; }
+body.pagina-modulo .cabecalho-modulo .icone-formiga,
+body.painel-compacto .cabecalho-modulo .icone-formiga {
+    display: block;
+    flex: 0 0 54px;
+    width: 54px;
+    height: 96px;
+    max-width: 54px;
+    margin: 0;
+    object-fit: contain;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+body.pagina-modulo .cabecalho-modulo h1,
+body.painel-compacto .cabecalho-modulo h1 {
+    margin: 0 0 6px;
+    color: white;
+    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+body.pagina-modulo .cabecalho-modulo p,
+body.painel-compacto .cabecalho-modulo p {
+    margin: 0;
+    color: white;
+    font-size: .95rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+body.pagina-modulo .cabecalho-modulo .botao-sair,
+body.painel-compacto .cabecalho-modulo .botao-sair {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 48px;
+    margin: 0;
+    padding: 10px 20px;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .15s ease;
+}
+body.pagina-modulo .cabecalho-modulo .botao-sair:hover,
+body.painel-compacto .cabecalho-modulo .botao-sair:hover { background: #ffffff18; }
+.cabecalho-modulo a:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+.cabecalho-modulo .navegacao-bloqueada { opacity: .6; cursor: wait; }
+
+/* Painel: nove cards alinhados; cinco colunas nas telas de computador. */
+body.pagina-painel.painel-compacto {
+    margin: 0;
+    background: linear-gradient(115deg, #f1f6fc 0%, #ffffff 55%, #fff8d9 100%);
+    color: #172033;
+}
+body.pagina-painel.painel-compacto .conteudo-painel {
+    box-sizing: border-box;
+    width: min(100%, 1244px);
+    max-width: 1244px;
+    margin: 0 auto;
+    padding: 30px 22px 40px;
+}
+body.painel-compacto .boas-vindas { margin: 0 0 24px; }
+body.painel-compacto .boas-vindas h2 { margin: 0 0 8px; color: #00347b; font-size: 1.75rem; line-height: 1.3; }
+body.painel-compacto .boas-vindas p { margin: 0; color: #506178; font-size: .95rem; line-height: 1.6; }
+body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 18px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes > .cartao-funcao[data-modulo] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    grid-area: auto;
+    align-self: stretch;
+    justify-self: stretch;
+    flex: none;
+    float: none;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    height: 100%;
+    min-height: 156px;
+    margin: 0;
+    padding: 18px 16px;
+    color: #172033;
+    background: white;
+    border: 1px solid #d6dfeb;
+    border-top: 5px solid var(--cor-modulo);
+    border-radius: 14px;
+    box-shadow: 0 5px 15px #16346109;
+    text-decoration: none;
+    transform: none;
+    transition: box-shadow .15s ease, border-color .15s ease;
+}
+body.pagina-painel.painel-compacto .grade-funcoes > .cartao-funcao h3 {
+    margin: 0 0 10px;
+    color: #00347b;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+body.pagina-painel.painel-compacto .grade-funcoes > .cartao-funcao p {
+    margin: 0;
+    color: #506178;
+    font-size: .875rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes > .cartao-funcao:hover {
+    box-shadow: 0 8px 20px #1634611c;
+    transform: none;
+}
+body.pagina-painel.painel-compacto .cartao-funcao:focus-visible { outline: 3px solid #00347b; outline-offset: 4px; }
+@media (min-width: 560px) {
+    body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 800px) {
+    body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1100px) {
+    body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (max-width: 559px) {
+    body.pagina-modulo .cabecalho-modulo,
+    body.painel-compacto .cabecalho-modulo { flex-wrap: wrap; gap: 14px; padding: 16px 18px; min-height: 0; }
+    body.pagina-modulo .cabecalho-modulo .marca-painel,
+    body.painel-compacto .cabecalho-modulo .marca-painel { gap: 12px; flex: 1 1 100%; }
+    body.pagina-modulo .cabecalho-modulo .icone-formiga,
+    body.painel-compacto .cabecalho-modulo .icone-formiga { width: 40px; height: 70px; max-width: 40px; flex-basis: 40px; }
+    body.pagina-modulo .cabecalho-modulo h1,
+    body.painel-compacto .cabecalho-modulo h1 { font-size: 1.25rem; }
+    body.pagina-modulo .cabecalho-modulo p,
+    body.painel-compacto .cabecalho-modulo p { font-size: .85rem; }
+    body.pagina-modulo .cabecalho-modulo .botao-sair,
+    body.painel-compacto .cabecalho-modulo .botao-sair { min-height: 44px; margin-left: auto; padding: 8px 14px; font-size: .9rem; }
+    body.pagina-painel.painel-compacto .conteudo-painel { padding: 24px 18px 32px; }
+    body.pagina-painel.painel-compacto .conteudo-painel .grade-funcoes > .cartao-funcao[data-modulo] { min-height: 128px; }
+}

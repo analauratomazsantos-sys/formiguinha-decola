@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta name="csrf-token" content="<%= csrf %>">
+    <title>Fotos dos estudantes | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/mercadinho.css">
+    <link rel="stylesheet" href="/css/fotos-estudantes.css">
+    <link rel="stylesheet" href="/css/modulos.css">
+    <link rel="stylesheet" href="/css/pesquisa-cadastros.css">
+    <script src="/js/pesquisa-cadastros.js" defer></script>
+    <script src="/js/mercadinho-fotos.js" defer></script>
+    <script src="/js/fotos-estudantes-camera.js" defer></script>
+    <script src="/js/fotos-estudantes.js" defer></script>
+</head>
+<body class="pagina-modulo" data-modulo="fotos">
+    <%- include('partials/cabecalho-modulo', { navegacaoFoto: true }) %>
+    <main class="caixa">
+        <div class="titulo">
+            <p class="sobretitulo">ADMINISTRAÇÃO</p>
+            <h1>Fotos dos estudantes</h1>
+            <p><%= aluno ? 'Confira o nome e a turma antes de cadastrar ou substituir a foto.' : 'Encontre o estudante pelo nome ou pela turma para editar sua foto de identificação.' %></p>
+        </div>
+        <% if (!aluno) { %>
+        <section class="cartao" aria-label="Escolher estudante">
+            <label for="filtro-fotos">Buscar estudante ou turma</label>
+            <input id="filtro-fotos" type="search" autocomplete="off" placeholder="Digite o nome ou a turma">
+            <p id="quantidade-fotos" role="status" aria-live="polite"><%= alunos.length %> estudantes cadastrados.</p>
+            <div class="lista-fotos">
+                <% alunos.forEach((estudante, indice) => { %>
+                <a class="linha-estudante-foto" href="/fotos-estudantes/<%= estudante.id_aluno %>" <%- indice >= 50 ? 'hidden' : '' %>>
+                    <span><strong><%= estudante.nome %></strong><small><%= estudante.turma || 'Turma não informada' %></small></span>
+                    <span class="editar-foto">Editar foto</span>
+                </a>
+                <% }); %>
+            </div>
+            <p id="fotos-sem-resultados" hidden>Nenhum estudante encontrado. Confira o nome ou a turma.</p>
+            <button id="mais-fotos" type="button" class="secundario" <%- alunos.length <= 50 ? 'hidden' : '' %>>Mostrar mais estudantes</button>
+        </section>
+        <% } else { %>
+        <section class="cartao editor-foto" aria-labelledby="nome-aluno">
+            <input id="identificacao-foto" type="hidden" value="<%= aluno.identificacao %>">
+            <div class="resumo-editor">
+                <div>
+                    <p class="sobretitulo">ESTUDANTE SELECIONADO</p>
+                    <h2 id="nome-aluno"><%= aluno.nome %></h2>
+                    <p>Turma: <strong><%= aluno.turma || 'Turma não informada' %></strong></p>
+                </div>
+                <div class="quadro-foto foto-edicao">
+                    <img id="foto-aluno" data-foto-url="<%= aluno.foto_url %>" alt="Foto de identificação do estudante selecionado" hidden>
+                    <span id="foto-ausente">Foto do estudante</span>
+                </div>
+            </div>
+            <div class="cadastro-foto">
+                <input id="arquivo-foto" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+                <div class="origens-foto">
+                    <button id="tirar-foto" type="button" aria-controls="camera-foto" aria-expanded="false" disabled>Tirar foto</button>
+                    <button id="cadastrar-foto" type="button" class="secundario" disabled>Escolher da galeria</button>
+                </div>
+                <section id="camera-foto" class="camera-foto" aria-label="Câmera para foto do estudante" hidden>
+                    <p>Confira o nome e a turma acima e enquadre o rosto do estudante.</p>
+                    <video id="video-foto" autoplay muted playsinline aria-label="Prévia ao vivo da câmera"></video>
+                    <p id="status-camera-foto" role="status" aria-live="polite"></p>
+                    <div class="botoes-camera-foto">
+                        <button id="capturar-foto" type="button" disabled>Capturar foto</button>
+                        <button id="trocar-camera-foto" type="button" class="secundario" hidden>Trocar câmera</button>
+                        <button id="fechar-camera-foto" type="button" class="secundario">Fechar câmera</button>
+                    </div>
+                </section>
+                <div id="acoes-foto" class="acoes-foto" hidden>
+                    <button id="salvar-foto" type="button" disabled>Salvar foto</button>
+                    <button id="cancelar-foto" type="button" class="secundario">Cancelar</button>
+                </div>
+                <p id="status-foto" role="status" aria-live="polite">Consultando a foto…</p>
+                <small>Tire uma foto ou escolha uma imagem JPG, PNG ou WebP de até 10 MB. Confira a prévia e clique em Salvar foto para cadastrar.</small>
+            </div>
+            <a class="escolher-estudante" href="/fotos-estudantes" data-navegacao-foto>Escolher outro estudante</a>
+        </section>
+        <% } %>
+    </main>
+</body>
+</html>

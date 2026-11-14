@@ -8,8 +8,6 @@ const erroValor = document.getElementById("erro-valor");
 const mensagem = document.getElementById("mensagem-lrcash");
 
 form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
     const estudante = estudanteSelect.value;
     const criterio = criterioSelect.value;
     const valorTexto = valorInput.value;
@@ -23,16 +21,19 @@ form.addEventListener("submit", (event) => {
     mensagem.classList.remove("sucesso");
 
     if (estudante === "") {
+        event.preventDefault();
         erroEstudante.textContent = "Selecione um estudante.";
         formularioValido = false;
     }
 
     if (criterio === "") {
+        event.preventDefault();
         erroCriterio.textContent = "Selecione um critério.";
         formularioValido = false;
     }
 
     if (valorTexto === "" || Number.isNaN(valor) || valor <= 0) {
+        event.preventDefault();
         erroValor.textContent = "Informe um valor maior que zero.";
         formularioValido = false;
     }
@@ -43,5 +44,5 @@ form.addEventListener("submit", (event) => {
     }
 
     mensagem.classList.add("sucesso");
-    mensagem.textContent = "Dados validados. Aguardando integração com o servidor.";
+    mensagem.textContent = "Registrando crédito...";
 });
