@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minha senha | Formiguinha Decola</title>
+    <link rel="stylesheet" href="/css/estilos.css"><link rel="stylesheet" href="/css/modulos.css"><link rel="stylesheet" href="/css/acessos-funcionarios.css">
+</head>
+<body class="pagina-formulario pagina-modulo" data-modulo="cadastro">
+    <header class="cabecalho-modulo"><div class="marca-painel"><img src="/images/mascote-formiguinha.png" alt="Mascote Formiguinha" class="icone-formiga"><div><h1>Formiguinha Decola</h1><p>Minha senha</p></div></div><a class="botao-sair" href="/sair">Sair</a></header>
+    <main class="conteudo-formulario">
+        <section class="cabecalho-formulario"><h2><%= acesso.trocar_senha ? 'Defina sua senha pessoal' : 'Alterar minha senha' %></h2><p>Use uma senha de pelo menos 4 caracteres. Sua senha pode incluir espaços.</p></section>
+        <% if (erro) { %><p class="aviso-dados" role="alert"><%= erro %></p><% } %>
+        <form action="/minha-senha" method="POST" class="formulario-estudante">
+            <input type="hidden" name="_csrf" value="<%= csrf %>">
+            <div class="campo-formulario"><label for="atual">Senha atual ou provisória</label><input id="atual" name="atual" type="password" autocomplete="current-password" required></div>
+            <div class="campo-formulario"><label for="nova">Nova senha pessoal</label><input id="nova" name="nova" type="password" minlength="4" autocomplete="new-password" required></div>
+            <div class="campo-formulario"><label for="confirmacao">Repita a nova senha</label><input id="confirmacao" name="confirmacao" type="password" minlength="4" autocomplete="new-password" required></div>
+            <button class="botao-salvar" type="submit">Salvar senha e continuar</button>
+        </form>
+    </main>
+</body></html>

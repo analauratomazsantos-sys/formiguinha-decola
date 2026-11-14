@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso do aluno - Formiguinha Decola</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <style>
+    .aviso-erro {
+      background: #ffe5e5;
+      border: 1px solid #d93025;
+      border-radius: 10px;
+      color: #8b0000;
+      margin-bottom: 16px;
+      padding: 12px;
+    }
+
+    .codigo-aluno {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.3rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .ajuda-aluno {
+      color: #555;
+      font-size: 0.9rem;
+      margin-top: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="pagina-login">
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-left">
+        <img
+          src="/images/mascote-formiguinha.png"
+          alt="Mascote Formiguinha"
+          class="mascote-login">
+      </div>
+
+      <div class="login-right">
+        <h1>Minha LRCash</h1>
+        <p class="subtitulo">
+          Consulte seu saldo no Banco Formigueiro
+        </p>
+
+        <% if (erro) { %>
+          <div class="aviso-erro"><%= erro %></div>
+        <% } %>
+
+        <form action="/aluno" method="post">
+          <div class="campo">
+            <label for="codigo">C&oacute;digo de acesso</label>
+            <input
+              class="codigo-aluno"
+              type="text"
+              id="codigo"
+              name="codigo"
+              minlength="6"
+              maxlength="6"
+              pattern="[A-Za-z0-9]{6}"
+              autocomplete="off"
+              placeholder="ABC123"
+              required>
+          </div>
+
+          <button type="submit" class="btn-principal">
+            <i class="bi bi-wallet2"></i>
+            Ver minha conta
+          </button>
+        </form>
+
+        <p class="ajuda-aluno">
+          Use o c&oacute;digo individual entregue pela escola.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

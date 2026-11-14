@@ -19,15 +19,17 @@
         <h1>Formiguinha Decola</h1>
         <p class="subtitulo">Banco Formigueiro • FolhaPay • LRCash</p>
 
-    <form action="/painel" method="get">
+    <% if (typeof erro !== 'undefined' && erro) { %><p role="alert" class="aviso-dados"><%= erro %></p><% } %>
+    <form action="/login" method="post">
+          <input type="hidden" name="_csrf" value="<%= typeof csrf !== 'undefined' ? csrf : '' %>">
           <div class="campo">
             <label for="email">Usuário</label>
-            <input type="text" id="email" name="email" placeholder="Digite seu usuário">
+            <input type="text" id="email" name="email" placeholder="Código do funcionário ou usuário administrativo" autocomplete="username" required maxlength="254">
           </div>
 
           <div class="campo">
             <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
           </div>
 
           <button type="submit" class="btn-principal">

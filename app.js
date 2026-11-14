@@ -68,7 +68,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "landing", "index.html"));
 });
-
 const indexRoutes = require("./api/routes/indexRoutes.js");
 app.use("/", indexRoutes);
 
