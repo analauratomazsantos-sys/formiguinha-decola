@@ -2,11 +2,11 @@
 -- MySQL 8.x / InnoDB / utf8mb4
 -- 01_schema.sql
 
-CREATE DATABASE IF NOT EXISTS formiguinha_decola
+CREATE DATABASE IF NOT EXISTS formiguinha_decola_demo
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_0900_ai_ci;
 
-USE formiguinha_decola;
+USE formiguinha_decola_demo;
 
 -- USUARIO: acesso ao sistema.
 CREATE TABLE IF NOT EXISTS usuario (
