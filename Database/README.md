@@ -1,42 +1,11 @@
-# Formiguinha Decola — Banco de Dados
+# Banco de demonstração — Formiguinha Decola
 
-Bruno e quem vai fazer o front, tem esse readme aqui pra dar uma auxiliada sobre o banco, qualquer coisa chama no zap.
+Use **somente uma instância local de MySQL 8**, sem conexão com o Railway. A base de demonstração se chama `formiguinha_decola_demo`.
 
-## Arquivos
+1. Em uma base local nova, execute `01_schema.sql`, depois `02_seed.sql`.
+2. Execute `03_validation.sql` para conferir três alunos fictícios, dois grupos e os saldos de demonstração (10,00; 8,00; 0,00 LRCash).
+3. Para usar a aplicação com essa base, aponte o arquivo `.env` local para ela (`DB_HOST=localhost` e `DB_NAME=formiguinha_decola_demo`). Use credenciais locais e uma chave de sessão próprias. Nunca versione o `.env`.
 
-- `01_schema.sql` — cria o banco e todas as tabelas, chaves, índices e constraints.
-- `02_seed.sql` — popula turmas, os 191 alunos da planilha , contas, critérios, um usuário de teste e algumas movimentações.
-- `03_validation.sql` — consultas para conferir cardinalidades, contas, extrato e cálculo de saldo.
+O seed não inclui usuário de acesso, senha reutilizável, dados escolares reais ou credenciais da produção. Para usar o login, cadastre um usuário exclusivo na tabela `usuario` da base de demonstração com um hash bcrypt gerado para uma senha local própria (ver `senha_hash` no esquema).
 
-## Ordem de execução
-
-1. Execute `01_schema.sql`.
-2. Execute `02_seed.sql`.
-3. Execute `03_validation.sql` para conferir os resultados.
-
-## Decisões principais
-
-- RA: `CHAR(12)` porque os dados fornecidos têm exatamente 12 dígitos e possuem zeros à esquerda.
-- QR Code: `VARCHAR(64) UNIQUE NOT NULL`. O banco guarda o token; a imagem do QR deve ser gerada pelo backend/frontend/API posteriormente.
-- Valores monetários: `DECIMAL(10,2)` em vez de `FLOAT`, para evitar imprecisão de ponto flutuante.
-- Telefone: `VARCHAR(20) NULL`, permitindo diferentes formatos sem armazenar como número.
-- `MOVIMENTACAO.tipo`: `ENTRADA` ou `SAIDA`; o valor permanece positivo e o tipo indica a direção.
-- `CONTA.saldo`: O backend deve atualizá-lo de forma transacional ao registrar uma movimentação, e o saldo também pode ser conferido pela soma das movimentações.
-- Exclusões usam `RESTRICT` nas relações financeiras para não apagar histórico de movimentações acidentalmente.
-
-## Divergências tratadas
-
- `USUARIO` e `CRITERIO`, embora eles não apareçam nos diagramas atuais enviados. eles foram incluídos no banco, e `CRITERIO` foi ligado a `MOVIMENTACAO` conforme a especificação escrita.
-
-A planilha  contém registros para 6 turmas: 6A, 6B, 7A, 8A, 9A, 9B. As demais abas existentes não tinham alunos e, portanto, não foram cadastradas como turmas com dados de teste.
-
-## Usuário de teste
-
-Email: `teste@formiguinha.local`  
-Senha: `Formiguinha@123`
-
-E bruno o valor armazenado no banco é um hash bcrypt de teste; o backend não deve armazenar senha em texto puro.
-
-## Observação sobre os dados dos alunos
-
-A tabela `aluno` recebe os 191 registros presentes na planilha fornecida. Telefone e data de nascimento ficam `NULL` porque esses campos não foram fornecidos ainda.
+Esta ramificação é um passo de preparação. O histórico anterior, os pull requests e as outras ramificações ainda não foram higienizados. Não altere a visibilidade do repositório antes de concluir essa revisão.
